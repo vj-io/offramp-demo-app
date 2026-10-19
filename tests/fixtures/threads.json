@@ -1,0 +1,339 @@
+[
+  {
+    "id": "th-4001",
+    "tags": [
+      "short",
+      "en"
+    ],
+    "messages": [
+      {
+        "author": "Priya Nair",
+        "role": "customer",
+        "sent_at": "2025-09-01T08:12:00Z",
+        "text": "I was charged $49.00 twice for March."
+      },
+      {
+        "author": "Tom (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-01T09:40:00Z",
+        "text": "Thanks Priya, I can see both charges. I will refund the duplicate today."
+      }
+    ]
+  },
+  {
+    "id": "th-4002",
+    "tags": [
+      "long",
+      "en",
+      "escalating"
+    ],
+    "messages": [
+      {
+        "author": "Marcus Webb",
+        "role": "customer",
+        "sent_at": "2025-08-12T10:01:00Z",
+        "text": "My lamp base for order HH-55901 never arrived."
+      },
+      {
+        "author": "Dana (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-08-12T11:30:00Z",
+        "text": "Sorry about that Marcus. I see it shipped on 2025-08-05. Let me open a trace."
+      },
+      {
+        "author": "system",
+        "role": "system",
+        "sent_at": "2025-08-12T11:31:00Z",
+        "text": "Carrier trace #TR-90311 opened."
+      },
+      {
+        "author": "Marcus Webb",
+        "role": "customer",
+        "sent_at": "2025-08-19T09:15:00Z",
+        "text": "Any news? A week has passed."
+      },
+      {
+        "author": "Dana (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-08-19T14:02:00Z",
+        "text": "The carrier says it was delivered to your previous address. I have asked them to retrieve it."
+      },
+      {
+        "author": "Marcus Webb",
+        "role": "customer",
+        "sent_at": "2025-08-19T14:20:00Z",
+        "text": "I changed my address two days before ordering! This is your mistake."
+      },
+      {
+        "author": "Dana (HelpHub)",
+        "role": "internal_note",
+        "sent_at": "2025-08-19T14:25:00Z",
+        "text": "Checked: address change was saved 2025-08-04 18:02 UTC but the order was already routed. Our bug, not the customer's."
+      },
+      {
+        "author": "Dana (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-08-20T08:45:00Z",
+        "text": "You are right, and I apologise. I will reship today at no cost."
+      },
+      {
+        "author": "Marcus Webb",
+        "role": "customer",
+        "sent_at": "2025-09-05T19:40:00Z",
+        "text": "Five weeks now and nothing. I just want the $24 back."
+      },
+      {
+        "author": "Sam (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-06T07:55:00Z",
+        "text": "Taking this over from Dana. Refunding order HH-55901 ($24.00) now."
+      }
+    ]
+  },
+  {
+    "id": "th-4003",
+    "tags": [
+      "en",
+      "internal-notes"
+    ],
+    "messages": [
+      {
+        "author": "Lena Fischer",
+        "role": "customer",
+        "sent_at": "2025-09-03T13:00:00Z",
+        "text": "Cancel my annual plan please, I bought it by mistake 5 days ago."
+      },
+      {
+        "author": "Sam (HelpHub)",
+        "role": "internal_note",
+        "sent_at": "2025-09-03T13:20:00Z",
+        "text": "Within 14-day window, so full refund. Customer paid 1,188.00 EUR. Needs finance approval above 1,000."
+      },
+      {
+        "author": "Sam (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-03T13:22:00Z",
+        "text": "Hi Lena, I have asked our finance team to approve the full refund. I will confirm tomorrow."
+      }
+    ]
+  },
+  {
+    "id": "th-4004",
+    "tags": [
+      "de"
+    ],
+    "messages": [
+      {
+        "author": "Katharina Müller",
+        "role": "customer",
+        "sent_at": "2025-09-04T07:30:00Z",
+        "text": "Meine Bestellung HH-30417 ist immer noch nicht in Wien angekommen. Seit 9 Tagen keine Bewegung."
+      },
+      {
+        "author": "Dana (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-04T10:15:00Z",
+        "text": "Guten Tag Frau Müller, ich habe eine Nachforschung beim Paketdienst eingeleitet und melde mich bis Freitag."
+      },
+      {
+        "author": "Katharina Müller",
+        "role": "customer",
+        "sent_at": "2025-09-05T16:05:00Z",
+        "text": "Danke. Falls es bis nächste Woche nicht da ist, möchte ich das Geld (62,90 €) zurück."
+      }
+    ]
+  },
+  {
+    "id": "th-4005",
+    "tags": [
+      "es"
+    ],
+    "messages": [
+      {
+        "author": "Carlos Ibáñez",
+        "role": "customer",
+        "sent_at": "2025-09-02T18:10:00Z",
+        "text": "El monitor de mi pedido HH-30991 llegó con la pantalla rota."
+      },
+      {
+        "author": "Tom (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-03T08:00:00Z",
+        "text": "Lamentamos lo ocurrido, Carlos. Envíenos una foto y le mandamos un reemplazo sin coste."
+      },
+      {
+        "author": "Carlos Ibáñez",
+        "role": "customer",
+        "sent_at": "2025-09-03T09:12:00Z",
+        "text": "Foto adjunta. Prefiero el reembolso de 189,00 EUR."
+      }
+    ]
+  },
+  {
+    "id": "th-4006",
+    "tags": [
+      "ja"
+    ],
+    "messages": [
+      {
+        "author": "佐藤 はるか",
+        "role": "customer",
+        "sent_at": "2025-09-02T01:20:00Z",
+        "text": "注文番号 HH-77120 がまだ届きません。予定日は先週でした。"
+      },
+      {
+        "author": "Aiko (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-02T03:00:00Z",
+        "text": "ご不便をおかけして申し訳ありません。配送業者に確認し、明日までにご連絡します。"
+      },
+      {
+        "author": "system",
+        "role": "system",
+        "sent_at": "2025-09-03T02:00:00Z",
+        "text": "Carrier reports: delivery attempt failed, recipient absent (2025-09-01)."
+      }
+    ]
+  },
+  {
+    "id": "th-4007",
+    "tags": [
+      "empty"
+    ],
+    "messages": []
+  },
+  {
+    "id": "th-4008",
+    "tags": [
+      "single-message",
+      "en"
+    ],
+    "messages": [
+      {
+        "author": "Joe Barrett",
+        "role": "customer",
+        "sent_at": "2025-09-06T22:47:00Z",
+        "text": "Is anybody there? Chat has been 'connecting' for ten minutes."
+      }
+    ]
+  },
+  {
+    "id": "th-4009",
+    "tags": [
+      "malformed"
+    ],
+    "messages": [
+      {
+        "author": "",
+        "role": "customer",
+        "sent_at": "yesterday-ish",
+        "text": "<p>hel&nbsp;lo??</p>"
+      },
+      {
+        "author": "bot",
+        "role": "system",
+        "sent_at": "",
+        "text": ""
+      },
+      {
+        "author": "Tom (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-07T09:00:00Z",
+        "text": "...>>> On Sat wrote: >>> >>> >>>"
+      }
+    ]
+  },
+  {
+    "id": "th-4010",
+    "tags": [
+      "unicode",
+      "emoji"
+    ],
+    "messages": [
+      {
+        "author": "Zoë Ångström",
+        "role": "customer",
+        "sent_at": "2025-09-05T12:00:00Z",
+        "text": "😤 my order HH-55102 (£59.00) is STILL ‘in transit’ — 6 days late 🙄"
+      },
+      {
+        "author": "Dana (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-05T13:30:00Z",
+        "text": "So sorry Zoë 🙏 — I’ve escalated to the carrier and will update you by 17:00."
+      }
+    ]
+  },
+  {
+    "id": "th-4011",
+    "tags": [
+      "en",
+      "multiple-orders"
+    ],
+    "messages": [
+      {
+        "author": "Ines Duarte",
+        "role": "customer",
+        "sent_at": "2025-09-08T09:00:00Z",
+        "text": "I ordered HH-81002 (€120.00) and HH-81077 (€45.50) in the same checkout but only the first one arrived."
+      },
+      {
+        "author": "Tom (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-08T10:12:00Z",
+        "text": "I can see HH-81077 was split into a separate shipment due to stock. It ships 2025-09-10."
+      },
+      {
+        "author": "Ines Duarte",
+        "role": "customer",
+        "sent_at": "2025-09-08T10:20:00Z",
+        "text": "Fine, but I want free express shipping for the delay since I was not told about the split."
+      },
+      {
+        "author": "Tom (HelpHub)",
+        "role": "internal_note",
+        "sent_at": "2025-09-08T10:30:00Z",
+        "text": "Policy allows free express upgrade once per customer. Approved by Sam."
+      }
+    ]
+  },
+  {
+    "id": "th-4012",
+    "tags": [
+      "en",
+      "system-heavy"
+    ],
+    "messages": [
+      {
+        "author": "system",
+        "role": "system",
+        "sent_at": "2025-09-09T06:00:00Z",
+        "text": "Auto-reply sent: We received your request."
+      },
+      {
+        "author": "Owen Clarke",
+        "role": "customer",
+        "sent_at": "2025-09-09T06:03:00Z",
+        "text": "Webhook retries are flooding our queue (workspace ws_7741)."
+      },
+      {
+        "author": "system",
+        "role": "system",
+        "sent_at": "2025-09-09T06:03:05Z",
+        "text": "Label added: technical_support"
+      },
+      {
+        "author": "system",
+        "role": "system",
+        "sent_at": "2025-09-09T06:03:06Z",
+        "text": "Priority set to high by rule R-14 (keyword: flooding)"
+      },
+      {
+        "author": "Sam (HelpHub)",
+        "role": "agent",
+        "sent_at": "2025-09-09T07:15:00Z",
+        "text": "I have paused retries for ws_7741 and engineering is looking at the null label in ticket.updated."
+      }
+    ]
+  }
+]

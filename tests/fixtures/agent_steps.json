@@ -1,0 +1,138 @@
+[
+  {
+    "id": "as-2001",
+    "tags": [
+      "short",
+      "en",
+      "first-step"
+    ],
+    "ticket_text": "Where is order HH-48213? I was charged but nothing has arrived.",
+    "history": []
+  },
+  {
+    "id": "as-2002",
+    "tags": [
+      "en",
+      "refund"
+    ],
+    "ticket_text": "The mugs from order HH-48213 arrived smashed. I'd like a refund, please.",
+    "history": [
+      {
+        "tool": "lookup_order",
+        "output": "Order HH-48213: status DELIVERED 2025-09-02, items: Ceramic mug set x1, total 34.90 EUR, paid by card ending 4417, damage report on file: yes (photos attached)."
+      }
+    ]
+  },
+  {
+    "id": "as-2003",
+    "tags": [
+      "en",
+      "legal"
+    ],
+    "ticket_text": "This is the third time my order HH-61207 has gone missing. My solicitor will be in touch and I will be reporting this to the consumer authority.",
+    "history": []
+  },
+  {
+    "id": "as-2004",
+    "tags": [
+      "en",
+      "high-value"
+    ],
+    "ticket_text": "Order HH-70344 was a wrong item. Refund the full amount.",
+    "history": [
+      {
+        "tool": "lookup_order",
+        "output": "Order HH-70344: status DELIVERED 2025-09-10, items: Standing desk frame x1, total 480.00 EUR, item sent differs from item ordered (SKU mismatch)."
+      }
+    ]
+  },
+  {
+    "id": "as-2005",
+    "tags": [
+      "short",
+      "en",
+      "no-order-id"
+    ],
+    "ticket_text": "I want my money back.",
+    "history": []
+  },
+  {
+    "id": "as-2006",
+    "tags": [
+      "es"
+    ],
+    "ticket_text": "Hola, mi pedido HH-30991 llegó con un artículo faltante (falta el cargador).",
+    "history": []
+  },
+  {
+    "id": "as-2007",
+    "tags": [
+      "de",
+      "duplicate-charge"
+    ],
+    "ticket_text": "Ich wurde für Bestellung HH-42018 zweimal belastet. Bitte eine Charge zurückerstatten.",
+    "history": [
+      {
+        "tool": "lookup_order",
+        "output": "Order HH-42018: status SHIPPED, items: Notebook set x2, total 28.50 EUR, charges: 2 x 28.50 EUR on 2025-09-06 (second charge flagged as duplicate)."
+      }
+    ]
+  },
+  {
+    "id": "as-2008",
+    "tags": [
+      "ja"
+    ],
+    "ticket_text": "注文番号 HH-77120 のキャンセルをお願いします。まだ発送されていないはずです。",
+    "history": []
+  },
+  {
+    "id": "as-2009",
+    "tags": [
+      "malformed"
+    ],
+    "ticket_text": "ord3r ##??  HH--- help!!!   >>>> wheres my stuf <<<<  hh-4 4 2 1",
+    "history": []
+  },
+  {
+    "id": "as-2010",
+    "tags": [
+      "empty"
+    ],
+    "ticket_text": "",
+    "history": []
+  },
+  {
+    "id": "as-2011",
+    "tags": [
+      "long",
+      "en"
+    ],
+    "ticket_text": "Hello,\n\nI have been a customer since 2021 and honestly I have never had this much trouble. Back in June I ordered a desk lamp and a monitor arm and the lamp showed up with a cracked base, which I let go. Then in August I ordered a replacement base (that is order HH-55901) and it was sent to my old address even though I changed it in my account two days before. I called, I was told it would be re-sent, nothing happened. I have now waited five weeks for something that costs $24. I do not want another replacement, I just want the $24 back on my card. Please do this today.\n\nRegards,\nMarcus",
+    "history": [
+      {
+        "tool": "lookup_order",
+        "output": "Order HH-55901: status RETURNED_TO_SENDER 2025-08-29, items: Lamp base x1, total 24.00 USD, shipped to previous address on file."
+      }
+    ]
+  },
+  {
+    "id": "as-2012",
+    "tags": [
+      "unicode",
+      "emoji",
+      "multi-step"
+    ],
+    "ticket_text": "💔 order HH-55102 never came and I am out of patience 😤",
+    "history": [
+      {
+        "tool": "lookup_order",
+        "output": "Order HH-55102: status IN_TRANSIT since 2025-08-30, total 59.00 GBP."
+      },
+      {
+        "tool": "escalate_to_human",
+        "output": "Ticket assigned to Dana (carrier trace opened)."
+      }
+    ]
+  }
+]
