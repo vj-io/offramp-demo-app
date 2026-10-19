@@ -129,10 +129,10 @@
     "period_start": "2025-05-01",
     "cancel_date": "2025-12-20",
     "coupon_pct": "0",
-    "prior_refund_usd": "100.00",
+    "prior_refund_usd": "250.00",
     "currency": "USD",
     "fx_rate": "1",
-    "expected_answer": "72.33"
+    "expected_answer": "0.00"
   },
   {
     "id": "rf-5008",
@@ -176,7 +176,7 @@
     "id": "rf-5010",
     "tags": [
       "annual",
-      "half-cent-rounding",
+      "proration-rounding",
       "usd"
     ],
     "plan_name": "Starter Annual",
@@ -251,5 +251,89 @@
     "currency": "EUR",
     "fx_rate": "0.9231",
     "expected_answer": "6639.40"
+  },
+  {
+    "id": "rf-5014",
+    "tags": [
+      "monthly",
+      "single-tier",
+      "tie-prorated-fee",
+      "usd"
+    ],
+    "plan_name": "Enterprise Monthly",
+    "period_days": 30,
+    "list_price_usd": "230.30",
+    "seats": 10,
+    "period_start": "2025-09-01",
+    "cancel_date": "2025-09-15",
+    "coupon_pct": "0",
+    "prior_refund_usd": "0",
+    "currency": "USD",
+    "fx_rate": "1",
+    "expected_answer": "1116.95"
+  },
+  {
+    "id": "rf-5015",
+    "tags": [
+      "annual",
+      "single-tier",
+      "full-refund-window",
+      "tie-currency",
+      "jpy"
+    ],
+    "plan_name": "Business Annual",
+    "period_days": 365,
+    "list_price_usd": "99.00",
+    "seats": 3,
+    "period_start": "2025-06-02",
+    "cancel_date": "2025-06-08",
+    "coupon_pct": "0",
+    "prior_refund_usd": "0",
+    "currency": "JPY",
+    "fx_rate": "148.5",
+    "expected_answer": "44105"
+  },
+  {
+    "id": "rf-5016",
+    "tags": [
+      "annual",
+      "single-tier",
+      "full-refund-window",
+      "tie-coupon",
+      "coupon",
+      "usd"
+    ],
+    "plan_name": "Starter Annual",
+    "period_days": 365,
+    "list_price_usd": "16.50",
+    "seats": 7,
+    "period_start": "2025-03-10",
+    "cancel_date": "2025-03-14",
+    "coupon_pct": "5",
+    "prior_refund_usd": "0",
+    "currency": "USD",
+    "fx_rate": "1",
+    "expected_answer": "109.73"
+  },
+  {
+    "id": "rf-5017",
+    "tags": [
+      "annual",
+      "two-tiers",
+      "full-refund-window",
+      "tie-tier-subtotal",
+      "usd"
+    ],
+    "plan_name": "Team Annual",
+    "period_days": 365,
+    "list_price_usd": "9.30",
+    "seats": 11,
+    "period_start": "2025-11-03",
+    "cancel_date": "2025-11-09",
+    "coupon_pct": "0",
+    "prior_refund_usd": "0",
+    "currency": "USD",
+    "fx_rate": "1",
+    "expected_answer": "100.91"
   }
 ]

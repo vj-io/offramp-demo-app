@@ -1,3 +1,5 @@
+import re
+
 from helphub.kb import load_articles
 
 
@@ -18,3 +20,13 @@ def test_loader_reads_title_and_body(tmp_path):
     (article,) = load_articles(tmp_path)
 
     assert (article.id, article.title, article.text) == ("hello-world", "Hello", "First para.")
+
+
+def test_every_delivery_window_is_stated_as_the_same_number_of_days():
+    windows = {
+        days
+        for article in load_articles()
+        for days in re.findall(r"within (\d+) days of delivery", article.text)
+    }
+
+    assert windows == {"30"}
