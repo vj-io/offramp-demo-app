@@ -1,0 +1,53 @@
+{
+ "files": {
+  "audit.json": "198e678d0e6acf563f504a9e3fe9a67b685d7ab9b01e719450a9b51b3d541bf5",
+  "cases/cs_01.jsonl": "b328b5986a88363bba173c1e44e802068c36ebb1b6c9bb320c2e1a2aecdc5bbb",
+  "cases/cs_02.jsonl": "2f54aa758331fec62b5a120738267c54337f891e28bc02b0500df52d0125a2a3",
+  "cases/cs_03.jsonl": "3e89fb8f6e438b48c8b242b3a18d0b167b9fb898bf8573b6d67fc24a91ebda5e",
+  "cases/cs_04.jsonl": "27f3071a07abdd8f017fc72b8790b7c7e5aaa7c30671594bd659cc1167f50555",
+  "cases/cs_05.jsonl": "9ba9fcfafe1fe9a53988befaa1b311eba56d4d225de946a4b04994cfde01fe0f",
+  "cases/cs_06.jsonl": "7040553b629f977290331a27bea15bf6bbbea16466fb3b99f3df9564dfa3224f",
+  "closed/cs_01.jsonl": "352fffd57730ad9baef1f6128e61cac38bd085690134eb0ded833bbfb2346fb4",
+  "closed/cs_02.jsonl": "01ee154c1c01285cb1e881aedbd32066493ce79233a2cb8dd4847095dac8c3db",
+  "closed/cs_03.jsonl": "34bdd05e8374acb6711631d5770ba0db20043a0bf4e31e1280b99022b30bdf8d",
+  "closed/cs_04.jsonl": "ac1e2a72df2536e730cac8f60689c9bff8cb953598fc7a3ca32b78228dd616bf",
+  "closed/cs_06.jsonl": "13ce1d76e73bb483b2f0938ba62e57e50196ec91438973b4d1650e8b741732e7",
+  "reference/refund_oracle.py": "528f5802677b5e13c684eeb0218b2811c8d46349f025ce2ba6c1b5f9e48c3488",
+  "references/cs_01.dropped.jsonl": "b1897d4a310ec66b655b7bf484383886ff646f9dab7f86fa6ed4938629fc2212",
+  "references/cs_01.jsonl": "8daf9bd289a1b273c5b47c7588cae6ccb87a8ef9580071008dae348ba864d38d",
+  "references/cs_02.dropped.jsonl": "ca402669119eebc1df5af60c25a60a8343b6d2fc30c0213fe6c0fbb4381d8b07",
+  "references/cs_02.jsonl": "b5222921e31dc51e4b5952dfc2a7078f77049cd9b7b0d7237e4c6cb887cf480f",
+  "references/cs_03.dropped.jsonl": "652618fb82ca7e551b8883b0467501b1e0a9e55abe621410ee88b47645853473",
+  "references/cs_03.jsonl": "0d5eb4ba33f47d215cb0d886cc383f818d61337667c08de13538f71c1471dc87",
+  "references/cs_05.jsonl": "bffce011d05b72bb6a8d90e37a26aead6ac28e75fe062dd3c63aaff2c0adff86",
+  "sites.json": "dcfa66efbcd3bfb67796877751288da3f622c358c99ee64a4372804523f93c51"
+ },
+ "generated_at": "2026-10-19T21:53:42.451801+00:00",
+ "generator_models": {
+  "case_gen": "nvidia/nemotron-3-super-120b-a12b",
+  "case_gen_adversarial": "nvidia/Nemotron-3-Ultra-550b-a55b"
+ },
+ "methods": {
+  "cs_01": {
+   "closed_model": 24,
+   "reference:seed": 21
+  },
+  "cs_02": {
+   "closed_model": 20,
+   "reference:seed": 15
+  },
+  "cs_03": {
+   "closed_model": 19,
+   "reference:seed": 16
+  },
+  "cs_04": {
+   "closed_model": 24
+  },
+  "cs_05": {
+   "reference:oracle": 24
+  },
+  "cs_06": {
+   "closed_model": 21
+  }
+ }
+}

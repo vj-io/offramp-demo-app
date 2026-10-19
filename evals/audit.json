@@ -1,0 +1,56 @@
+{
+ "cs_01": {
+  "agreed": 21,
+  "auditors": [
+   "blind:claude-sonnet-5.5 (via Claude Code; not the repo's source model)"
+  ],
+  "checked": 24,
+  "dropped": 3,
+  "human_verified": 0,
+  "unchecked": 0
+ },
+ "cs_02": {
+  "agreed": 15,
+  "auditors": [
+   "blind:claude-sonnet-5.5 (via Claude Code; not the repo's source model)"
+  ],
+  "checked": 20,
+  "dropped": 5,
+  "human_verified": 0,
+  "unchecked": 0
+ },
+ "cs_03": {
+  "agreed": 16,
+  "auditors": [
+   "blind:claude-sonnet-5.5 (via Claude Code; not the repo's source model)"
+  ],
+  "checked": 19,
+  "dropped": 3,
+  "human_verified": 0,
+  "unchecked": 0
+ },
+ "cs_04": {
+  "agreed": 0,
+  "auditors": [],
+  "checked": 0,
+  "dropped": 0,
+  "human_verified": 0,
+  "unchecked": 0
+ },
+ "cs_05": {
+  "agreed": 0,
+  "auditors": [],
+  "checked": 0,
+  "dropped": 0,
+  "human_verified": 0,
+  "unchecked": 0
+ },
+ "cs_06": {
+  "agreed": 0,
+  "auditors": [],
+  "checked": 0,
+  "dropped": 0,
+  "human_verified": 0,
+  "unchecked": 0
+ }
+}
