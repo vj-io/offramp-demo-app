@@ -1,0 +1,1024 @@
+{
+ "site": {
+  "id": "cs_03",
+  "file": "helphub/orders/extract.py",
+  "lines": [
+   47,
+   57
+  ],
+  "kind": "chat",
+  "sdk": "anthropic",
+  "call": "client.messages.create",
+  "function": "extract_order",
+  "source_model": "claude-sonnet-4-5",
+  "prompt_source": "fstring",
+  "prompt_ref": "EXTRACT_SYSTEM_PROMPT",
+  "template": {
+   "system": "You extract structured order data from customer support emails.\nReply with a single JSON object that validates against the JSON schema given in the user message.\nUse null for any field the email does not state; never guess.\nWrite dates as YYYY-MM-DD, currencies as ISO 4217 codes, and amounts as plain numbers with a dot\nas the decimal separator. Keep names exactly as written. The email may be in any language.\nDo not wrap the JSON in markdown and do not add any commentary.",
+   "user": "JSON schema:\n{{\"properties\": {{\"order_id\": {{\"anyOf\": [{{\"type\": \"string\"}}, {{\"type\": \"null\"}}], \"description\": \"Order id such as HH-48213, null if not stated\", \"title\": \"Order Id\"}}, \"customer_name\": {{\"anyOf\": [{{\"type\": \"string\"}}, {{\"type\": \"null\"}}], \"description\": \"Full name of the customer as written\", \"title\": \"Customer Name\"}}, \"customer_email\": {{\"anyOf\": [{{\"type\": \"string\"}}, {{\"type\": \"null\"}}], \"description\": \"Customer's email address\", \"title\": \"Customer Email\"}}, \"order_date\": {{\"anyOf\": [{{\"type\": \"string\"}}, {{\"type\": \"null\"}}], \"description\": \"Order date as YYYY-MM-DD, null if not stated\", \"title\": \"Order Date\"}}, \"total_amount\": {{\"anyOf\": [{{\"type\": \"number\"}}, {{\"type\": \"null\"}}], \"description\": \"Order total as a plain number, no symbol\", \"title\": \"Total Amount\"}}, \"currency\": {{\"anyOf\": [{{\"type\": \"string\"}}, {{\"type\": \"null\"}}], \"description\": \"ISO 4217 currency code, e.g. EUR\", \"title\": \"Currency\"}}, \"issue\": {{\"enum\": [\"damaged\", \"missing_item\", \"wrong_item\", \"late_delivery\", \"billing_error\", \"other\"], \"title\": \"Issue\", \"type\": \"string\"}}}}, \"required\": [\"order_id\", \"customer_name\", \"customer_email\", \"order_date\", \"total_amount\", \"currency\", \"issue\"], \"title\": \"OrderFields\", \"type\": \"object\"}}\n\nEmail:\n{email}",
+   "variables": [
+    "email"
+   ]
+  },
+  "params": {
+   "max_tokens": 1024,
+   "system": "You extract structured order data from customer support emails.\nReply with a single JSON object that validates against the JSON schema given in the user message.\nUse null for any field the email does not state; never guess.\nWrite dates as YYYY-MM-DD, currencies as ISO 4217 codes, and amounts as plain numbers with a dot\nas the decimal separator. Keep names exactly as written. The email may be in any language.\nDo not wrap the JSON in markdown and do not add any commentary."
+  },
+  "contract": {
+   "task_type": "json_extraction",
+   "output": "json",
+   "tools": false,
+   "streaming": false,
+   "latency_budget_ms": null,
+   "reasoning_heavy": false,
+   "labels": [],
+   "json_schema": {
+    "properties": {
+     "order_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Order id such as HH-48213, null if not stated",
+      "title": "Order Id"
+     },
+     "customer_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Full name of the customer as written",
+      "title": "Customer Name"
+     },
+     "customer_email": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Customer's email address",
+      "title": "Customer Email"
+     },
+     "order_date": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Order date as YYYY-MM-DD, null if not stated",
+      "title": "Order Date"
+     },
+     "total_amount": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Order total as a plain number, no symbol",
+      "title": "Total Amount"
+     },
+     "currency": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "ISO 4217 currency code, e.g. EUR",
+      "title": "Currency"
+     },
+     "issue": {
+      "enum": [
+       "damaged",
+       "missing_item",
+       "wrong_item",
+       "late_delivery",
+       "billing_error",
+       "other"
+      ],
+      "title": "Issue",
+      "type": "string"
+     }
+    },
+    "required": [
+     "order_id",
+     "customer_name",
+     "customer_email",
+     "order_date",
+     "total_amount",
+     "currency",
+     "issue"
+    ],
+    "title": "OrderFields",
+    "type": "object"
+   }
+  },
+  "confidence": 0.95,
+  "flags": []
+ },
+ "verdict": {
+  "site_id": "cs_03",
+  "decision": "MIGRATE",
+  "tier": "super",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "parity_pct": 100.0,
+  "best_tier": null,
+  "best_score": null,
+  "iterations": 1,
+  "latency_delta_ms": null,
+  "cost_before_per_1k": 3.165,
+  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 3 super holdout calls)",
+  "cost_after_per_1k": 0.2761,
+  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5)",
+  "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
+  "closed_reference_parity_pct": null,
+  "reason": "The extract_order function extracts order details including currency from emails; Super tier matched reference behavior while lower tiers failed, justifying migration. Super: parity vs reference 100.0% ≥ 95% on holdout after 1 adapter iteration; cost per 1k calls $3.17 before (est.), $0.276 after."
+ },
+ "adapter": {
+  "site_id": "cs_03",
+  "version": 1,
+  "tier": "super",
+  "spec": {
+   "system_prompt": "You extract structured order data from customer support emails. Reply with a single JSON object that validates against the JSON schema given in the user message. Use null for any field the email does not state; never guess. Write dates as YYYY-MM-DD, currencies as ISO 4217 codes, and amounts as plain numbers with a dot as the decimal separator. Keep names exactly as written. The email may be in any language. Do not wrap the JSON in markdown and do not add any commentary. If the email does not explicitly mention a currency symbol or code (e.g., €, EUR, USD, $), set the currency field to null.",
+   "user_prefix": "",
+   "user_suffix": "",
+   "few_shot": [],
+   "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+     "name": "response",
+     "strict": true,
+     "schema": {
+      "properties": {
+       "order_id": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "description": "Order id such as HH-48213, null if not stated",
+        "title": "Order Id"
+       },
+       "customer_name": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "description": "Full name of the customer as written",
+        "title": "Customer Name"
+       },
+       "customer_email": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "description": "Customer's email address",
+        "title": "Customer Email"
+       },
+       "order_date": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "description": "Order date as YYYY-MM-DD, null if not stated",
+        "title": "Order Date"
+       },
+       "total_amount": {
+        "anyOf": [
+         {
+          "type": "number"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "description": "Order total as a plain number, no symbol",
+        "title": "Total Amount"
+       },
+       "currency": {
+        "anyOf": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "description": "ISO 4217 currency code, e.g. EUR",
+        "title": "Currency"
+       },
+       "issue": {
+        "enum": [
+         "damaged",
+         "missing_item",
+         "wrong_item",
+         "late_delivery",
+         "billing_error",
+         "other"
+        ],
+        "title": "Issue",
+        "type": "string"
+       }
+      },
+      "required": [
+       "order_id",
+       "customer_name",
+       "customer_email",
+       "order_date",
+       "total_amount",
+       "currency",
+       "issue"
+      ],
+      "title": "OrderFields",
+      "type": "object",
+      "additionalProperties": false
+     }
+    }
+   },
+   "json_mode_fallback": false,
+   "tools": null,
+   "tool_choice": null,
+   "reasoning": "off",
+   "max_tokens": 1024,
+   "temperature": 0.0,
+   "extra_body": {}
+  },
+  "patch": null,
+  "notes": [
+   "temperature: not set in source -> 0 (deterministic eval)",
+   "system: Anthropic system= -> leading system message (rendered into each case)",
+   "Source model is Claude Sonnet 4.5 (non-reasoning); task is deterministic JSON extraction with a known schema.",
+   "Deterministic translator already mapped Anthropic system prompt to leading system message and set temperature=0.",
+   "Token Factory supports server-side guided JSON decoding on all tiers; json_schema is used to enforce the exact OrderFields schema.",
+   "No tools, streaming, or multi-step reasoning required; max_tokens=1024 is sufficient for the extraction.",
+   "Calling code parses the reply as a JSON object; json_schema keeps the contract identical.",
+   "iterator: few_shot ignored, an example reply is not a valid JSON reply for the site"
+  ],
+  "risk_flags": [
+   "null_handling: Nemotron may occasionally omit null fields instead of writing explicit null; schema requires all fields present.",
+   "date_format: Model might output DD/MM/YYYY or month names despite YYYY-MM-DD instruction; validation will catch but could cause retry.",
+   "currency_code: Could emit symbol (€) or name (Euro) instead of ISO 4217 code (EUR); schema expects code.",
+   "amount_format: Might include thousands separators or currency symbols; schema expects plain number with dot decimal.",
+   "issue_enum: Could produce free-text issue description instead of the seven enum values; schema restricts to enum."
+  ],
+  "change_log": [
+   "Added explicit instruction to set currency to null when no currency symbol or code appears in the email",
+   "Added a worked example showing correct null currency extraction from a German email with only numeric amounts"
+  ]
+ },
+ "tier_results": [
+  {
+   "site_id": "cs_03",
+   "tier": "lightning",
+   "adapter_version": 0,
+   "split": "dev",
+   "passed": false,
+   "score": 0.945054945054945,
+   "metrics": {
+    "p50_ms": 1164,
+    "p95_ms": 3089,
+    "tokens_in": 7925,
+    "tokens_out": 956,
+    "cost_per_1k_calls_usd": 0.05422615384615384
+   },
+   "failing_case_ids": [
+    "cs_03:001",
+    "cs_03:008",
+    "cs_03:013",
+    "cs_03:014",
+    "cs_03:018"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_03:001",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: currency",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:008",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: order_date",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:012",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:013",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: currency",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:014",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: customer_name",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:016",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:017",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:018",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: order_date",
+     "error_category": "wrong_value"
+    }
+   ]
+  },
+  {
+   "site_id": "cs_03",
+   "tier": "lightning",
+   "adapter_version": 1,
+   "split": "dev",
+   "passed": false,
+   "score": 0.9340659340659341,
+   "metrics": {
+    "p50_ms": 1650,
+    "p95_ms": 3826,
+    "tokens_in": 8081,
+    "tokens_out": 958,
+    "cost_per_1k_calls_usd": 0.05498307692307691
+   },
+   "failing_case_ids": [
+    "cs_03:001",
+    "cs_03:008",
+    "cs_03:013",
+    "cs_03:014",
+    "cs_03:018"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_03:001",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: currency",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:008",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: order_date",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:012",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:013",
+     "passed": false,
+     "score": 0.7142857142857143,
+     "detail": "field_match=0.714; wrong: customer_name, customer_email",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:014",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: customer_name",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:016",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:017",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:018",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: order_date",
+     "error_category": "wrong_value"
+    }
+   ]
+  },
+  {
+   "site_id": "cs_03",
+   "tier": "lightning",
+   "adapter_version": 2,
+   "split": "dev",
+   "passed": false,
+   "score": 0.9230769230769231,
+   "metrics": {
+    "p50_ms": 1821,
+    "p95_ms": 4460,
+    "tokens_in": 8965,
+    "tokens_out": 983,
+    "cost_per_1k_calls_usd": 0.05952461538461538
+   },
+   "failing_case_ids": [
+    "cs_03:008",
+    "cs_03:012",
+    "cs_03:013",
+    "cs_03:014",
+    "cs_03:016",
+    "cs_03:017",
+    "cs_03:018"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_03:001",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:008",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: order_date",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:012",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: customer_name",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:013",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: customer_name",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:014",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: customer_name",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:016",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: customer_name",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:017",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: order_id",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:018",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: order_date",
+     "error_category": "wrong_value"
+    }
+   ]
+  },
+  {
+   "site_id": "cs_03",
+   "tier": "lightning",
+   "adapter_version": 3,
+   "split": "dev",
+   "passed": false,
+   "score": 0.967032967032967,
+   "metrics": {
+    "p50_ms": 1627,
+    "p95_ms": 3811,
+    "tokens_in": 9355,
+    "tokens_out": 949,
+    "cost_per_1k_calls_usd": 0.06069692307692307
+   },
+   "failing_case_ids": [
+    "cs_03:012",
+    "cs_03:016",
+    "cs_03:017"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_03:001",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:008",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:012",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: customer_name",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:013",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:014",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:016",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: customer_name",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:017",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: order_id",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:018",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  },
+  {
+   "site_id": "cs_03",
+   "tier": "super",
+   "adapter_version": 0,
+   "split": "dev",
+   "passed": false,
+   "score": 0.989010989010989,
+   "metrics": {
+    "p50_ms": 1491,
+    "p95_ms": 1586,
+    "tokens_in": 7925,
+    "tokens_out": 928,
+    "cost_per_1k_calls_usd": 0.24713076923076924
+   },
+   "failing_case_ids": [
+    "cs_03:001"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_03:001",
+     "passed": false,
+     "score": 0.8571428571428571,
+     "detail": "field_match=0.857; wrong: currency",
+     "error_category": "wrong_value"
+    },
+    {
+     "case_id": "cs_03:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:008",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:012",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:013",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:014",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:016",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:017",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:018",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  },
+  {
+   "site_id": "cs_03",
+   "tier": "super",
+   "adapter_version": 1,
+   "split": "dev",
+   "passed": true,
+   "score": 1.0,
+   "metrics": {
+    "p50_ms": 2139,
+    "p95_ms": 5198,
+    "tokens_in": 8315,
+    "tokens_out": 926,
+    "cost_per_1k_calls_usd": 0.2559923076923077
+   },
+   "failing_case_ids": [],
+   "case_scores": [
+    {
+     "case_id": "cs_03:001",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:008",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:012",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:013",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:014",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:016",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:017",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:018",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  },
+  {
+   "site_id": "cs_03",
+   "tier": "super",
+   "adapter_version": 1,
+   "split": "holdout",
+   "passed": true,
+   "score": 1.0,
+   "metrics": {
+    "p50_ms": 2364,
+    "p95_ms": 2870,
+    "tokens_in": 2155,
+    "tokens_out": 202,
+    "cost_per_1k_calls_usd": 0.2761
+   },
+   "failing_case_ids": [],
+   "case_scores": [
+    {
+     "case_id": "cs_03:005",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:010",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_03:019",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  }
+ ]
+}

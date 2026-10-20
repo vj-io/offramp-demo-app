@@ -1,0 +1,411 @@
+{
+ "site": {
+  "id": "cs_01",
+  "file": "helphub/inbox/triage.py",
+  "lines": [
+   31,
+   39
+  ],
+  "kind": "chat",
+  "sdk": "openai",
+  "call": "client.chat.completions.create",
+  "function": "triage_ticket",
+  "source_model": "gpt-4o-mini",
+  "prompt_source": "fstring",
+  "prompt_ref": "TRIAGE_SYSTEM_PROMPT",
+  "template": {
+   "system": "You are the ticket router for HelpHub, a customer support platform.\nClassify the customer's ticket into exactly one queue:\n\n- billing: charges, invoices, payment methods, subscription pricing\n- shipping: delivery status, tracking, delays, lost parcels, address changes\n- returns_refunds: returns, exchanges, damaged or wrong items, refund requests\n- technical_support: bugs, errors, integrations, API and webhook problems\n- account_access: login, password reset, two-factor, locked or compromised accounts\n- general: anything else, including feedback, partnerships and sales questions\n\nReply with the queue name only, exactly one of: billing, shipping, returns_refunds, technical_support, account_access, general. No punctuation, no explanation.",
+   "user": "Subject: {subject}\n\n{body}",
+   "variables": [
+    "subject",
+    "body"
+   ]
+  },
+  "params": {
+   "max_tokens": 16,
+   "temperature": 0
+  },
+  "contract": {
+   "task_type": "classification",
+   "output": "label",
+   "tools": false,
+   "streaming": false,
+   "latency_budget_ms": null,
+   "reasoning_heavy": false,
+   "labels": [
+    "billing",
+    "shipping",
+    "returns_refunds",
+    "technical_support",
+    "account_access",
+    "general"
+   ],
+   "json_schema": null
+  },
+  "confidence": 1.0,
+  "flags": []
+ },
+ "verdict": {
+  "site_id": "cs_01",
+  "decision": "MIGRATE",
+  "tier": "lightning",
+  "model": "nvidia/Nemotron-3_5-Lightning",
+  "parity_pct": 100.0,
+  "best_tier": null,
+  "best_score": null,
+  "iterations": 1,
+  "latency_delta_ms": null,
+  "cost_before_per_1k": 0.0344,
+  "cost_before_note": "est.: gpt-4o-mini $0.15/$0.60 per 1M (developers.openai.com/api/docs/models/gpt-4o-mini, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 9 lightning holdout calls)",
+  "cost_after_per_1k": 0.01376,
+  "sunset_risk": null,
+  "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
+  "closed_reference_parity_pct": null,
+  "reason": "The triage ticket function classifies support tickets into categories like technical support or account access using few-shot examples; Lightning tier matched reference outputs on held-out cases while being the cheapest option. Lightning: parity vs reference 100.0% ≥ 95% on holdout after 1 adapter iteration; cost per 1k calls $0.0344 before (est.), $0.0138 after."
+ },
+ "adapter": {
+  "site_id": "cs_01",
+  "version": 1,
+  "tier": "lightning",
+  "spec": {
+   "system_prompt": "You are the ticket router for HelpHub, a customer support platform. Classify the customer's ticket into exactly one queue: billing, shipping, returns_refunds, technical_support, account_access, general. Reply with the queue name only, exactly one of: billing, shipping, returns_refunds, technical_support, account_access, general. No punctuation, no explanation.",
+   "user_prefix": "",
+   "user_suffix": "",
+   "few_shot": [
+    {
+     "role": "user",
+     "content": "Subject: Order confirmation email not received and order missing from dashboard"
+    },
+    {
+     "role": "assistant",
+     "content": "technical_support"
+    },
+    {
+     "role": "user",
+     "content": "Subject: Cannot log into my account after password reset"
+    },
+    {
+     "role": "assistant",
+     "content": "account_access"
+    }
+   ],
+   "response_format": null,
+   "json_mode_fallback": false,
+   "tools": null,
+   "tool_choice": null,
+   "reasoning": "off",
+   "max_tokens": 16,
+   "temperature": 0.0,
+   "extra_body": {}
+  },
+  "patch": null,
+  "notes": [
+   "Classification task with fixed label set; no JSON parsing required.",
+   "System prompt already enforces exact queue name output.",
+   "Temperature 0 and low max_tokens (16) ensure deterministic, concise replies.",
+   "No tools or structured output needed; plain text mode is sufficient.",
+   "Source model (gpt-4o-mini) is not a reasoning model; reasoning off avoids latency and leakage."
+  ],
+  "risk_flags": [
+   "label_drift: Nemotron may occasionally add whitespace or newline before/after label",
+   "case_sensitivity: Queue names must be lowercase; model might capitalize first letter",
+   "extra_punctuation: Despite prompt, model could append period or colon",
+   "ambiguous_tickets: Edge-case tickets spanning categories may pick different queue than gpt-4o-mini",
+   "token_limit: 16 tokens may truncate if model emits reasoning prose despite reasoning=off"
+  ],
+  "change_log": [
+   "Added few-shot example for missing confirmation email/dashboard sync -> technical_support",
+   "Added few-shot example for password reset login failure -> account_access",
+   "Kept system prompt concise; no rule changes"
+  ]
+ },
+ "tier_results": [
+  {
+   "site_id": "cs_01",
+   "tier": "lightning",
+   "adapter_version": 0,
+   "split": "dev",
+   "passed": false,
+   "score": 0.9166666666666666,
+   "metrics": {
+    "p50_ms": 3351,
+    "p95_ms": 8852,
+    "tokens_in": 3603,
+    "tokens_out": 36,
+    "cost_per_1k_calls_usd": 0.018734999999999998
+   },
+   "failing_case_ids": [
+    "cs_01:002"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_01:002",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected 'technical_support', got 'account_access'",
+     "error_category": "wrong_label"
+    },
+    {
+     "case_id": "cs_01:003",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:013",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:014",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:020",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:021",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:022",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:023",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:024",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  },
+  {
+   "site_id": "cs_01",
+   "tier": "lightning",
+   "adapter_version": 1,
+   "split": "dev",
+   "passed": true,
+   "score": 1.0,
+   "metrics": {
+    "p50_ms": 1724,
+    "p95_ms": 4238,
+    "tokens_in": 3279,
+    "tokens_out": 37,
+    "cost_per_1k_calls_usd": 0.017135
+   },
+   "failing_case_ids": [],
+   "case_scores": [
+    {
+     "case_id": "cs_01:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:003",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:013",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:014",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:020",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:021",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:022",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:023",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:024",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  },
+  {
+   "site_id": "cs_01",
+   "tier": "lightning",
+   "adapter_version": 1,
+   "split": "holdout",
+   "passed": true,
+   "score": 1.0,
+   "metrics": {
+    "p50_ms": 2637,
+    "p95_ms": 4101,
+    "tokens_in": 1944,
+    "tokens_out": 30,
+    "cost_per_1k_calls_usd": 0.01376
+   },
+   "failing_case_ids": [],
+   "case_scores": [
+    {
+     "case_id": "cs_01:001",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:005",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:008",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:012",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:016",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:017",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:018",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_01:019",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  }
+ ]
+}

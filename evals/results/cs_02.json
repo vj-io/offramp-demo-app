@@ -1,0 +1,798 @@
+{
+ "site": {
+  "id": "cs_02",
+  "file": "helphub/ops/agent_step.py",
+  "lines": [
+   73,
+   89
+  ],
+  "kind": "chat",
+  "sdk": "anthropic",
+  "call": "client.messages.create",
+  "function": "next_action",
+  "source_model": "claude-sonnet-4-5",
+  "prompt_source": "fstring",
+  "prompt_ref": "AGENT_SYSTEM_PROMPT",
+  "template": {
+   "system": "You are HelpHub's order-support agent. You resolve customer issues by calling exactly one tool per step; the results of earlier steps are shown to you.\n\n- lookup_order: use when you need order details (status, items, total, charges) that you do not have yet. Only use an order id that appears in the customer's message.\n- issue_refund: use only after the order has been looked up and the customer is eligible: the item arrived damaged or missing, or the customer was charged twice. Refund no more than the amount paid, and never more than 200.00 in one step.\n- escalate_to_human: use for legal threats, fraud or chargeback claims, refunds above 200.00, abusive messages, requests without any order id, and anything the other tools cannot resolve.",
+   "user": "Customer message:\n{ticket_text}\n\nTool results so far:\n{steps}\n\nChoose the next tool.",
+   "variables": [
+    "ticket_text",
+    "steps"
+   ]
+  },
+  "params": {
+   "tools": [
+    {
+     "name": "lookup_order",
+     "description": "Fetch an order's status, items, total and charges from the order system.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "order_id": {
+        "type": "string",
+        "description": "Order id, e.g. HH-48213"
+       }
+      },
+      "required": [
+       "order_id"
+      ]
+     }
+    },
+    {
+     "name": "issue_refund",
+     "description": "Refund part or all of an order to the original payment method.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "order_id": {
+        "type": "string",
+        "description": "Order id, e.g. HH-48213"
+       },
+       "amount": {
+        "type": "number",
+        "description": "Refund amount, at most 200.00"
+       },
+       "currency": {
+        "type": "string",
+        "description": "ISO 4217 code of the order"
+       },
+       "reason": {
+        "type": "string",
+        "enum": [
+         "damaged",
+         "missing_item",
+         "duplicate_charge",
+         "other"
+        ]
+       }
+      },
+      "required": [
+       "order_id",
+       "amount",
+       "currency",
+       "reason"
+      ]
+     }
+    },
+    {
+     "name": "escalate_to_human",
+     "description": "Hand the ticket to a human support agent.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "reason": {
+        "type": "string",
+        "description": "One sentence for the human agent"
+       },
+       "priority": {
+        "type": "string",
+        "enum": [
+         "low",
+         "normal",
+         "urgent"
+        ]
+       }
+      },
+      "required": [
+       "reason",
+       "priority"
+      ]
+     }
+    }
+   ],
+   "tool_choice": {
+    "type": "any"
+   },
+   "max_tokens": 512,
+   "system": "You are HelpHub's order-support agent. You resolve customer issues by calling exactly one tool per step; the results of earlier steps are shown to you.\n\n- lookup_order: use when you need order details (status, items, total, charges) that you do not have yet. Only use an order id that appears in the customer's message.\n- issue_refund: use only after the order has been looked up and the customer is eligible: the item arrived damaged or missing, or the customer was charged twice. Refund no more than the amount paid, and never more than 200.00 in one step.\n- escalate_to_human: use for legal threats, fraud or chargeback claims, refunds above 200.00, abusive messages, requests without any order id, and anything the other tools cannot resolve."
+  },
+  "contract": {
+   "task_type": "tool_call",
+   "output": "tool_call",
+   "tools": true,
+   "streaming": false,
+   "latency_budget_ms": null,
+   "reasoning_heavy": false,
+   "labels": [],
+   "json_schema": null
+  },
+  "confidence": 1.0,
+  "flags": []
+ },
+ "verdict": {
+  "site_id": "cs_02",
+  "decision": "MIGRATE",
+  "tier": "super",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "parity_pct": 100.0,
+  "best_tier": null,
+  "best_score": null,
+  "iterations": 0,
+  "latency_delta_ms": null,
+  "cost_before_per_1k": 3.588,
+  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 5 super holdout calls)",
+  "cost_after_per_1k": 0.33024,
+  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5)",
+  "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
+  "closed_reference_parity_pct": null,
+  "reason": "The tool call step selects actions based on context and available tools, and Super tier matched reference behavior where lower tiers failed to do so. Super: parity vs reference 100.0% ≥ 95% on holdout after 0 adapter iterations; cost per 1k calls $3.59 before (est.), $0.33 after."
+ },
+ "adapter": {
+  "site_id": "cs_02",
+  "version": 0,
+  "tier": null,
+  "spec": {
+   "system_prompt": null,
+   "user_prefix": "",
+   "user_suffix": "",
+   "few_shot": [],
+   "response_format": null,
+   "json_mode_fallback": false,
+   "tools": [
+    {
+     "type": "function",
+     "function": {
+      "name": "lookup_order",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "order_id": {
+         "type": "string",
+         "description": "Order id, e.g. HH-48213"
+        }
+       },
+       "required": [
+        "order_id"
+       ]
+      },
+      "description": "Fetch an order's status, items, total and charges from the order system."
+     }
+    },
+    {
+     "type": "function",
+     "function": {
+      "name": "issue_refund",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "order_id": {
+         "type": "string",
+         "description": "Order id, e.g. HH-48213"
+        },
+        "amount": {
+         "type": "number",
+         "description": "Refund amount, at most 200.00"
+        },
+        "currency": {
+         "type": "string",
+         "description": "ISO 4217 code of the order"
+        },
+        "reason": {
+         "type": "string",
+         "enum": [
+          "damaged",
+          "missing_item",
+          "duplicate_charge",
+          "other"
+         ]
+        }
+       },
+       "required": [
+        "order_id",
+        "amount",
+        "currency",
+        "reason"
+       ]
+      },
+      "description": "Refund part or all of an order to the original payment method."
+     }
+    },
+    {
+     "type": "function",
+     "function": {
+      "name": "escalate_to_human",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "reason": {
+         "type": "string",
+         "description": "One sentence for the human agent"
+        },
+        "priority": {
+         "type": "string",
+         "enum": [
+          "low",
+          "normal",
+          "urgent"
+         ]
+        }
+       },
+       "required": [
+        "reason",
+        "priority"
+       ]
+      },
+      "description": "Hand the ticket to a human support agent."
+     }
+    }
+   ],
+   "tool_choice": "required",
+   "reasoning": "off",
+   "max_tokens": 512,
+   "temperature": 0.0,
+   "extra_body": {}
+  },
+  "patch": null,
+  "notes": [
+   "tools: 3 Anthropic tools -> OpenAI function tools",
+   "tool_choice: {'type': 'any'} -> 'required'",
+   "temperature: not set in source -> 0 (deterministic eval)",
+   "system: Anthropic system= -> leading system message (rendered into each case)",
+   "Agent must call exactly one tool per step; tool_choice=required enforces this.",
+   "Source model is non-reasoning (claude-sonnet-4-5); reasoning off avoids latency and token cost.",
+   "System prompt and tool definitions fully specify valid tool calls; no extra user suffix needed.",
+   "Output is a tool call, not free text or JSON; output_mode=text preserves the function-calling format.",
+   "Temperature set to 0 for deterministic evaluation."
+  ],
+  "risk_flags": [
+   "lightning_tool_choice_auto: Lightning loops tool calls under tool_choice=required, so it is sent 'auto' and may answer in text where the source forced a tool call",
+   "tool_call_format: Nemotron may emit tool calls with slightly different argument ordering or whitespace, but the OpenAI-compatible parser should handle it.",
+   "policy_edge_cases: Nemotron might interpret refund eligibility or escalation triggers differently than Claude on borderline cases (e.g., exactly 200.00 refund, ambiguous damage claims).",
+   "multi_step_reasoning: With reasoning off, Nemotron may skip implicit multi-step logic (e.g., lookup then refund in one turn) but the prompt requires one tool per step, so this aligns.",
+   "system_prompt_adherence: Nemotron on Lightning tier may occasionally leak reasoning prose into the reply if the system prompt is not crisp, though reasoning is off.",
+   "tool_choice_enforcement: tool_choice=required ensures a tool is called, but Nemotron might pick a suboptimal tool if the customer message is ambiguous (e.g., missing order ID)."
+  ],
+  "change_log": []
+ },
+ "tier_results": [
+  {
+   "site_id": "cs_02",
+   "tier": "lightning",
+   "adapter_version": 0,
+   "split": "dev",
+   "passed": false,
+   "score": 0.9,
+   "metrics": {
+    "p50_ms": 904,
+    "p95_ms": 1064,
+    "tokens_in": 10523,
+    "tokens_out": 508,
+    "cost_per_1k_calls_usd": 0.07533
+   },
+   "failing_case_ids": [
+    "cs_02:004"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_02:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:004",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['escalate_to_human'], got ['lookup_order']",
+     "error_category": "wrong_tool"
+    },
+    {
+     "case_id": "cs_02:005",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:008",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:009",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:012",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:014",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:015",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  },
+  {
+   "site_id": "cs_02",
+   "tier": "lightning",
+   "adapter_version": 1,
+   "split": "dev",
+   "passed": false,
+   "score": 0.0,
+   "metrics": {
+    "p50_ms": 2102,
+    "p95_ms": 4046,
+    "tokens_in": 13533,
+    "tokens_out": 39,
+    "cost_per_1k_calls_usd": 0.082134
+   },
+   "failing_case_ids": [
+    "cs_02:002",
+    "cs_02:004",
+    "cs_02:005",
+    "cs_02:006",
+    "cs_02:008",
+    "cs_02:009",
+    "cs_02:011",
+    "cs_02:012",
+    "cs_02:014",
+    "cs_02:015"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_02:002",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:004",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['escalate_to_human'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:005",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:006",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:008",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:009",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:011",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:012",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:014",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:015",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    }
+   ]
+  },
+  {
+   "site_id": "cs_02",
+   "tier": "lightning",
+   "adapter_version": 2,
+   "split": "dev",
+   "passed": false,
+   "score": 0.0,
+   "metrics": {
+    "p50_ms": 2054,
+    "p95_ms": 4057,
+    "tokens_in": 13593,
+    "tokens_out": 39,
+    "cost_per_1k_calls_usd": 0.08249399999999998
+   },
+   "failing_case_ids": [
+    "cs_02:002",
+    "cs_02:004",
+    "cs_02:005",
+    "cs_02:006",
+    "cs_02:008",
+    "cs_02:009",
+    "cs_02:011",
+    "cs_02:012",
+    "cs_02:014",
+    "cs_02:015"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_02:002",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:004",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['escalate_to_human'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:005",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:006",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:008",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:009",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:011",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:012",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:014",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:015",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    }
+   ]
+  },
+  {
+   "site_id": "cs_02",
+   "tier": "lightning",
+   "adapter_version": 3,
+   "split": "dev",
+   "passed": false,
+   "score": 0.0,
+   "metrics": {
+    "p50_ms": 1773,
+    "p95_ms": 3904,
+    "tokens_in": 13593,
+    "tokens_out": 39,
+    "cost_per_1k_calls_usd": 0.08249399999999998
+   },
+   "failing_case_ids": [
+    "cs_02:002",
+    "cs_02:004",
+    "cs_02:005",
+    "cs_02:006",
+    "cs_02:008",
+    "cs_02:009",
+    "cs_02:011",
+    "cs_02:012",
+    "cs_02:014",
+    "cs_02:015"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_02:002",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:004",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['escalate_to_human'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:005",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:006",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:008",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:009",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:011",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:012",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:014",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['issue_refund'], candidate called no tool",
+     "error_category": "no_tool_call"
+    },
+    {
+     "case_id": "cs_02:015",
+     "passed": false,
+     "score": 0.0,
+     "detail": "expected ['lookup_order'], candidate called no tool",
+     "error_category": "no_tool_call"
+    }
+   ]
+  },
+  {
+   "site_id": "cs_02",
+   "tier": "super",
+   "adapter_version": 0,
+   "split": "dev",
+   "passed": true,
+   "score": 1.0,
+   "metrics": {
+    "p50_ms": 1385,
+    "p95_ms": 1525,
+    "tokens_in": 9833,
+    "tokens_out": 536,
+    "cost_per_1k_calls_usd": 0.34323000000000004
+   },
+   "failing_case_ids": [],
+   "case_scores": [
+    {
+     "case_id": "cs_02:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "free-text arguments not value-compared: escalate_to_human.priority, escalate_to_human.reason",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:005",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:008",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:009",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:012",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:014",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:015",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  },
+  {
+   "site_id": "cs_02",
+   "tier": "super",
+   "adapter_version": 0,
+   "split": "holdout",
+   "passed": true,
+   "score": 1.0,
+   "metrics": {
+    "p50_ms": 2725,
+    "p95_ms": 3423,
+    "tokens_in": 4790,
+    "tokens_out": 238,
+    "cost_per_1k_calls_usd": 0.33024
+   },
+   "failing_case_ids": [],
+   "case_scores": [
+    {
+     "case_id": "cs_02:003",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "free-text arguments not value-compared: escalate_to_human.priority, escalate_to_human.reason",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:016",
+     "passed": true,
+     "score": 1.0,
+     "detail": "free-text arguments not value-compared: escalate_to_human.priority, escalate_to_human.reason",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:018",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_02:019",
+     "passed": true,
+     "score": 1.0,
+     "detail": "free-text arguments not value-compared: escalate_to_human.priority, escalate_to_human.reason",
+     "error_category": null
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,311 @@
+{
+ "site": {
+  "id": "cs_05",
+  "file": "helphub/refunds/plan.py",
+  "lines": [
+   68,
+   89
+  ],
+  "kind": "chat",
+  "sdk": "openai",
+  "call": "client.chat.completions.create",
+  "function": "plan_refund",
+  "source_model": "o3",
+  "prompt_source": "fstring",
+  "prompt_ref": "REFUND_POLICY",
+  "template": {
+   "system": "You compute subscription refunds for HelpHub billing. Follow this policy exactly, step by step, and show your arithmetic.\n\n1. Tiered price. The list price is in USD per seat per billing period. Seats are priced in graduated tiers: seats 1-10 cost 100% of list price, seats 11-50 cost 85%, seats 51 and above cost 70%. Subtotal = sum over the tiers of (seats in that tier x list price x tier rate). Round the subtotal to 2 decimals, half up.\n2. Coupon. Take the coupon percentage off the subtotal and round to 2 decimals, half up. The result is the USD amount paid for the period.\n3. Days used. Days used = the number of days from the period start date to the cancellation date, counting both dates. Unused days = billing period days - days used, never below 0.\n4. Refundable amount in USD. If the billing period is 365 days and days used is 14 or fewer, the refundable amount is the full amount paid. Otherwise, prorated = amount paid x unused days / billing period days, rounded to 2 decimals half up; then subtract a 3% processing fee on the prorated amount, rounded to 2 decimals half up. The fee is not charged on a full refund.\n5. Prior refunds. Subtract the USD refunds already issued from the refundable amount. If the result is negative, it is 0.\n6. Currency. Multiply by the exchange rate recorded at purchase (units of the customer's currency per 1 USD) and round half up to the currency's minor unit: 2 decimals for USD, EUR and GBP, 0 decimals for JPY.\n7. Show your working, then put the final refund in the customer's currency alone on the last line as `ANSWER: <number>` (digits and a decimal point only: no currency symbol, no thousands separator).",
+   "user": "Plan: {request_plan_name}, billing period {request_period_days} days\nList price: {request_list_price_usd} USD per seat per period\nSeats: {request_seats}\nPeriod start: {request_period_start}\nCancelled on: {request_cancel_date}\nCoupon: {request_coupon_pct}% off\nRefunds already issued: {request_prior_refund_usd} USD\nCustomer paid in {request_currency} at {request_fx_rate} {request_currency} per 1 USD\n\nHow much do we refund, in {request_currency}?",
+   "variables": [
+    "request_plan_name",
+    "request_period_days",
+    "request_list_price_usd",
+    "request_seats",
+    "request_period_start",
+    "request_cancel_date",
+    "request_coupon_pct",
+    "request_prior_refund_usd",
+    "request_currency",
+    "request_fx_rate"
+   ]
+  },
+  "params": {
+   "max_completion_tokens": 16000
+  },
+  "contract": {
+   "task_type": "reasoning",
+   "output": "label",
+   "tools": false,
+   "streaming": false,
+   "latency_budget_ms": null,
+   "reasoning_heavy": true,
+   "labels": [],
+   "json_schema": null
+  },
+  "confidence": 0.95,
+  "flags": []
+ },
+ "verdict": {
+  "site_id": "cs_05",
+  "decision": "MIGRATE",
+  "tier": "lightning",
+  "model": "nvidia/Nemotron-3_5-Lightning",
+  "parity_pct": 100.0,
+  "best_tier": null,
+  "best_score": null,
+  "iterations": 0,
+  "latency_delta_ms": null,
+  "cost_before_per_1k": 39.507666666666665,
+  "cost_before_note": "est.: o3 $2.00/$8.00 per 1M (developers.openai.com/api/docs/pricing, pricing.yaml as of 2026-10-19; fallback: Tavily price not used (the cited page prints no unambiguous price for exactly this model)) x tokens measured on the Token Factory call (mean of 6 lightning holdout calls)",
+  "cost_after_per_1k": 1.18523,
+  "sunset_risk": null,
+  "closed_reference_model": null,
+  "closed_reference_parity_pct": null,
+  "reason": "The plan_refund function reasons about refund eligibility using the Lightning tier which matched reference behavior on unseen cases while being the least expensive option. Lightning: parity vs reference 100.0% ≥ 90% on holdout after 0 adapter iterations; cost per 1k calls $39.51 before (est.), $1.19 after."
+ },
+ "adapter": {
+  "site_id": "cs_05",
+  "version": 0,
+  "tier": null,
+  "spec": {
+   "system_prompt": null,
+   "user_prefix": "",
+   "user_suffix": "\n\nReply with the final refund amount in the customer's currency alone on the last line as `ANSWER: <number>` (digits and a decimal point only: no currency symbol, no thousands separator).",
+   "few_shot": [],
+   "response_format": null,
+   "json_mode_fallback": false,
+   "tools": null,
+   "tool_choice": null,
+   "reasoning": "high",
+   "max_tokens": 16000,
+   "temperature": 0.0,
+   "extra_body": {}
+  },
+  "patch": null,
+  "notes": [
+   "max_tokens: max_completion_tokens=16000 -> max_tokens=16000",
+   "temperature: not set in source -> 0 (deterministic eval)",
+   "reasoning: o3 is a reasoning model -> Nemotron thinking on",
+   "Source model o3 is a reasoning model; Nemotron thinking enabled at high level with +2000 token buffer.",
+   "Task requires multi-step arithmetic with tiered pricing, proration, fees, and currency conversion — all needing explicit step-by-step reasoning.",
+   "Output format is strictly constrained: working shown, then single ANSWER line with numeric value only.",
+   "Temperature set to 0 for deterministic arithmetic; max_tokens 16000 accommodates reasoning trace + output.",
+   "No tools or JSON schema involved; pure text completion with structured reasoning."
+  ],
+  "risk_flags": [
+   "lightning_reasoning_leak: with thinking on, Lightning writes its reasoning into the reply text (docs/plan/tf-probe.md), so Lightning may fail this site on format",
+   "reasoning_leak: On Lightning tier, Nemotron may emit reasoning prose into the final answer, violating the strict ANSWER: <number> format.",
+   "rounding_drift: Half-up rounding at multiple steps (subtotal, coupon, prorated, fee, FX) may differ from o3's exact decimal handling.",
+   "tiered_calc_error: Graduated seat pricing (1-10, 11-50, 51+) requires precise tier boundary logic; off-by-one errors possible.",
+   "full_refund_condition: 365-day period with ≤14 days used triggers full refund without fee; mis-evaluation changes result significantly.",
+   "fx_precision: Currency-specific minor unit rounding (0 for JPY, 2 for others) must be exact; Nemotron may default to 2 decimals."
+  ],
+  "change_log": []
+ },
+ "tier_results": [
+  {
+   "site_id": "cs_05",
+   "tier": "lightning",
+   "adapter_version": 0,
+   "split": "dev",
+   "passed": true,
+   "score": 1.0,
+   "metrics": {
+    "p50_ms": 22510,
+    "p95_ms": 38753,
+    "tokens_in": 10797,
+    "tokens_out": 89336,
+    "cost_per_1k_calls_usd": 1.2271366666666665
+   },
+   "failing_case_ids": [],
+   "case_scores": [
+    {
+     "case_id": "cs_05:003",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:004",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:006",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:008",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:009",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:010",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:011",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:012",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:013",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:014",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:015",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:016",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:017",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:019",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:021",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:022",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:023",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:024",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  },
+  {
+   "site_id": "cs_05",
+   "tier": "lightning",
+   "adapter_version": 0,
+   "split": "holdout",
+   "passed": true,
+   "score": 1.0,
+   "metrics": {
+    "p50_ms": 19369,
+    "p95_ms": 26018,
+    "tokens_in": 3587,
+    "tokens_out": 28734,
+    "cost_per_1k_calls_usd": 1.18523
+   },
+   "failing_case_ids": [],
+   "case_scores": [
+    {
+     "case_id": "cs_05:001",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:002",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:005",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:007",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:018",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_05:020",
+     "passed": true,
+     "score": 1.0,
+     "detail": "",
+     "error_category": null
+    }
+   ]
+  }
+ ]
+}

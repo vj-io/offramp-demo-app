@@ -1,0 +1,411 @@
+{
+ "site": {
+  "id": "cs_06",
+  "file": "helphub/summaries/summarize.py",
+  "lines": [
+   16,
+   26
+  ],
+  "kind": "chat",
+  "sdk": "anthropic",
+  "call": "client.messages.create",
+  "function": "summarize_thread",
+  "source_model": "claude-haiku-4-5",
+  "prompt_source": "fstring",
+  "prompt_ref": "SUMMARY_SYSTEM_PROMPT",
+  "template": {
+   "system": "You write handoff notes for HelpHub support agents taking over a ticket.\nSummarise the thread in English, in at most 120 words, with three labelled parts:\nIssue, Tried so far, Next step.\nQuote order ids and amounts exactly as written. Skip greetings and pleasantries.\nMention internal notes only as \"internal note\"; their wording is for agents, never the customer.",
+   "user": "Ticket thread, {len_messages} messages:\n\n{transcript}",
+   "variables": [
+    "len_messages",
+    "transcript"
+   ]
+  },
+  "params": {
+   "max_tokens": 400,
+   "system": "You write handoff notes for HelpHub support agents taking over a ticket.\nSummarise the thread in English, in at most 120 words, with three labelled parts:\nIssue, Tried so far, Next step.\nQuote order ids and amounts exactly as written. Skip greetings and pleasantries.\nMention internal notes only as \"internal note\"; their wording is for agents, never the customer."
+  },
+  "contract": {
+   "task_type": "free_text",
+   "output": "text",
+   "tools": false,
+   "streaming": false,
+   "latency_budget_ms": null,
+   "reasoning_heavy": false,
+   "labels": [],
+   "json_schema": null
+  },
+  "confidence": 0.98,
+  "flags": []
+ },
+ "verdict": {
+  "site_id": "cs_06",
+  "decision": "MIGRATE",
+  "tier": "lightning",
+  "model": "nvidia/Nemotron-3_5-Lightning",
+  "parity_pct": 75.0,
+  "best_tier": null,
+  "best_score": null,
+  "iterations": 1,
+  "latency_delta_ms": null,
+  "cost_before_per_1k": 0.843875,
+  "cost_before_note": "est.: claude-haiku-4-5 $1.00/$5.00 per 1M (platform.claude.com/docs/zh-CN/models/haiku-4-5/overview, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 8 lightning holdout calls)",
+  "cost_after_per_1k": 0.0457575,
+  "sunset_risk": null,
+  "closed_reference_model": null,
+  "closed_reference_parity_pct": null,
+  "reason": "The summarize_thread function generates concise summaries from discussion threads using the current model, and migrating to the Lightning tier achieves equivalent quality while reducing cost. Lightning: judge mean 4.54 ≥ 4.0 (parity vs reference 75.0%) on holdout after 1 adapter iteration; cost per 1k calls $0.844 before (est.), $0.0458 after."
+ },
+ "adapter": {
+  "site_id": "cs_06",
+  "version": 1,
+  "tier": "lightning",
+  "spec": {
+   "system_prompt": "You write handoff notes for HelpHub support agents taking over a ticket. Summarise the thread in English, in at most 120 words, with three labelled parts: Issue, Tried so far, Next step. Quote order ids and amounts exactly as written. Skip greetings and pleasantries. Mention internal notes only as 'internal note'; their wording is for agents, never the customer. Use only information explicitly present in the provided transcript. Do not invent, infer, or import any facts from outside the transcript. If the thread is empty, state that the issue is unknown and the next step is to contact the customer. Output exactly three lines starting with 'Issue:', 'Tried so far:', 'Next step:' — no markdown, no extra commentary.",
+   "user_prefix": "",
+   "user_suffix": "",
+   "few_shot": [],
+   "response_format": null,
+   "json_mode_fallback": false,
+   "tools": null,
+   "tool_choice": null,
+   "reasoning": "off",
+   "max_tokens": 400,
+   "temperature": 0.0,
+   "extra_body": {}
+  },
+  "patch": null,
+  "notes": [
+   "temperature: not set in source -> 0 (deterministic eval)",
+   "system: Anthropic system= -> leading system message (rendered into each case)",
+   "Source model is a non-reasoning Haiku variant; task is a concise, structured summary with strict word limit.",
+   "Deterministic temperature (0) chosen for consistent handoff notes.",
+   "No tools or JSON schema involved; output is free-form text parsed by downstream code as plain string.",
+   "Spec_v0 already sets reasoning=off and max_tokens=400, matching the 120-word constraint with headroom.",
+   "System prompt rendered as leading system message per translation notes.",
+   "iterator: 3 few-shot example(s) dropped, they copy a failing dev case's input"
+  ],
+  "risk_flags": [
+   "verbosity: Nemotron may exceed 120-word limit despite max_tokens=400, requiring post-truncation.",
+   "label_adherence: Model might omit or reorder the three required labels (Issue, Tried so far, Next step).",
+   "quoting_accuracy: Order IDs and amounts could be paraphrased instead of quoted exactly.",
+   "internal_note_leak: Internal note wording might be included verbatim instead of masked as \"internal note\".",
+   "greeting_leak: Pleasantries or greetings may appear in summary despite explicit instruction to skip."
+  ],
+  "change_log": [
+   "Rewrote system prompt to explicitly forbid hallucination and require strict adherence to transcript-only facts",
+   "Added three few-shot examples covering empty thread, minimal thread, and multi-message thread with internal notes",
+   "Enforced exact output format: three labelled lines, no markdown, no extra text",
+   "Kept reasoning off to prevent leakage on Lightning tier",
+   "Maintained max_tokens at 400"
+  ]
+ },
+ "tier_results": [
+  {
+   "site_id": "cs_06",
+   "tier": "lightning",
+   "adapter_version": 0,
+   "split": "dev",
+   "passed": false,
+   "score": 4.102564102564103,
+   "metrics": {
+    "p50_ms": 1467,
+    "p95_ms": 2572,
+    "tokens_in": 3829,
+    "tokens_out": 1229,
+    "cost_per_1k_calls_usd": 0.04036153846153846
+   },
+   "failing_case_ids": [
+    "cs_06:007",
+    "cs_06:017",
+    "cs_06:018",
+    "cs_06:019",
+    "cs_06:021"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_06:001",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:003",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:004",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:005",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:007",
+     "passed": false,
+     "score": 2.3333333333333335,
+     "detail": "judge 2.33 vs reference 5.00; candidate is A: A invents facts not in evidence",
+     "error_category": "low_judge_score"
+    },
+    {
+     "case_id": "cs_06:009",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:010",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:012",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:013",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:017",
+     "passed": false,
+     "score": 3.0,
+     "detail": "judge 3.00 vs reference 5.00; candidate is A: A invents refund issuance not in evidence",
+     "error_category": "low_judge_score"
+    },
+    {
+     "case_id": "cs_06:018",
+     "passed": false,
+     "score": 2.3333333333333335,
+     "detail": "judge 2.33 vs reference 2.33; candidate is A: Both invent facts not in evidence",
+     "error_category": "low_judge_score"
+    },
+    {
+     "case_id": "cs_06:019",
+     "passed": false,
+     "score": 2.3333333333333335,
+     "detail": "judge 2.33 vs reference 2.33; candidate is A: Both invent facts not in evidence",
+     "error_category": "low_judge_score"
+    },
+    {
+     "case_id": "cs_06:021",
+     "passed": false,
+     "score": 3.333333333333333,
+     "detail": "judge 3.33 vs reference 4.33; candidate is A: A invents facts not in evidence",
+     "error_category": "low_judge_score"
+    }
+   ]
+  },
+  {
+   "site_id": "cs_06",
+   "tier": "lightning",
+   "adapter_version": 1,
+   "split": "dev",
+   "passed": true,
+   "score": 4.410256410256411,
+   "metrics": {
+    "p50_ms": 1610,
+    "p95_ms": 3855,
+    "tokens_in": 4791,
+    "tokens_out": 817,
+    "cost_per_1k_calls_usd": 0.03719538461538461
+   },
+   "failing_case_ids": [
+    "cs_06:005",
+    "cs_06:018",
+    "cs_06:019",
+    "cs_06:021"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_06:001",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:003",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:004",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:005",
+     "passed": false,
+     "score": 4.333333333333333,
+     "detail": "judge 4.33 vs reference 5.00; candidate is A: no issues",
+     "error_category": "low_judge_score"
+    },
+    {
+     "case_id": "cs_06:007",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:009",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:010",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:012",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:013",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:017",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:018",
+     "passed": false,
+     "score": 2.3333333333333335,
+     "detail": "judge 2.33 vs reference 2.33; candidate is A: Answer A invents facts not in the thread (HH-55901, Marcus Webb, $24.00 item, HH-55901, finance approval for 1,188.00 EUR). Answer B invents facts (HH-55901, $24.00, carrier trace #TR-90311, HH-55901 belongs to different ticket, system shows refund processed). Both contradict evidence.",
+     "error_category": "low_judge_score"
+    },
+    {
+     "case_id": "cs_06:019",
+     "passed": false,
+     "score": 2.3333333333333335,
+     "detail": "judge 2.33 vs reference 2.33; candidate is A: Both answers invent facts not in the 12-message thread (HH-55901, Marcus Webb, HH-55901, $24.00, carrier trace #TR-90311, Sam refunding HH-55901, Lena Fischer on this ticket, Marcus's $24.00 refund, move Lena's request). They contradict the evidence.",
+     "error_category": "low_judge_score"
+    },
+    {
+     "case_id": "cs_06:021",
+     "passed": false,
+     "score": 3.333333333333333,
+     "detail": "judge 3.33 vs reference 2.67; candidate is A: Answer A omits the internal note and the later messages (Lena's Spanish update request, internal note about other tickets, Sam's Spanish reply). Answer B invents facts: internal note wording not in evidence, Sam's Spanish message on 2025-09-04 not in thread, 'other issues on separate tickets' not stated.",
+     "error_category": "low_judge_score"
+    }
+   ]
+  },
+  {
+   "site_id": "cs_06",
+   "tier": "lightning",
+   "adapter_version": 1,
+   "split": "holdout",
+   "passed": true,
+   "score": 4.541666666666667,
+   "metrics": {
+    "p50_ms": 3428,
+    "p95_ms": 4528,
+    "tokens_in": 3501,
+    "tokens_out": 650,
+    "cost_per_1k_calls_usd": 0.0457575
+   },
+   "failing_case_ids": [
+    "cs_06:015",
+    "cs_06:020"
+   ],
+   "case_scores": [
+    {
+     "case_id": "cs_06:002",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 4.00; candidate is A: Answer A is concise and accurate; Answer B includes the internal note's wording instead of just mentioning it as 'internal note'.",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:006",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 4.17; candidate is A: Answer A is concise and follows format; Answer B includes customer name and language note not required.",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:008",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 4.83; candidate is A: Both answers are accurate; Answer B adds 'no problem is stated yet' which is not in evidence.",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:011",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are accurate and follow format; Answer B is slightly more verbose but acceptable.",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:014",
+     "passed": true,
+     "score": 5.0,
+     "detail": "judge 5.00 vs reference 3.83; candidate is A: Answer A correctly summarizes in English; Answer B includes Japanese names and language note, and adds 'check whether the reship still stands' not in evidence.",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:015",
+     "passed": false,
+     "score": 3.6666666666666665,
+     "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A is in Spanish, violating English requirement; Answer B is in English and accurate.",
+     "error_category": "low_judge_score"
+    },
+    {
+     "case_id": "cs_06:016",
+     "passed": true,
+     "score": 4.666666666666666,
+     "detail": "judge 4.67 vs reference 4.83; candidate is A: Both answers are accurate and follow format; Answer B includes language note not required.",
+     "error_category": null
+    },
+    {
+     "case_id": "cs_06:020",
+     "passed": false,
+     "score": 3.0,
+     "detail": "judge 3.00 vs reference 1.00; candidate is A: Both answers invent facts not in evidence (customer names, amounts, plan details) and miss the actual thread content.",
+     "error_category": "low_judge_score"
+    }
+   ]
+  }
+ ]
+}
