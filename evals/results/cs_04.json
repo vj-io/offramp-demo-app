@@ -56,6 +56,24 @@
   "closed_reference_parity_pct": null,
   "reason": "The answer_question function generates free-text responses using retrieval-augmented generation, and migration is advised because the Ultra tier matched reference outputs while lower-cost tiers fell short. Ultra: judge mean 5.00 ≥ 4.0 (parity vs reference 100.0%) on holdout after 1 adapter iteration; cost per 1k calls $2.10 before (est.), $0.774 after."
  },
+ "eval_verdict": {
+  "site_id": "cs_04",
+  "decision": "MIGRATE",
+  "tier": "ultra",
+  "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+  "parity_pct": 100.0,
+  "best_tier": null,
+  "best_score": null,
+  "iterations": 1,
+  "latency_delta_ms": null,
+  "cost_before_per_1k": 2.1041666666666665,
+  "cost_before_note": "est.: gpt-4o $2.50/$10.00 per 1M (developers.openai.com/api/docs/pricing, pricing.yaml as of 2026-10-19; fallback: Tavily price not used (the cited page prints no unambiguous price for exactly this model)) x tokens measured on the Token Factory call (mean of 9 ultra holdout calls)",
+  "cost_after_per_1k": 0.7738888888888888,
+  "sunset_risk": null,
+  "closed_reference_model": null,
+  "closed_reference_parity_pct": null,
+  "reason": "The answer_question function generates free-text responses using retrieval-augmented generation, and migration is advised because the Ultra tier matched reference outputs while lower-cost tiers fell short. Ultra: judge mean 5.00 ≥ 4.0 (parity vs reference 100.0%) on holdout after 1 adapter iteration; cost per 1k calls $2.10 before (est.), $0.774 after."
+ },
  "adapter": {
   "site_id": "cs_04",
   "version": 1,

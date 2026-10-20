@@ -56,6 +56,24 @@
   "closed_reference_parity_pct": null,
   "reason": "The summarize_thread function generates concise summaries from discussion threads using the current model, and migrating to the Lightning tier achieves equivalent quality while reducing cost. Lightning: judge mean 4.54 ≥ 4.0 (parity vs reference 75.0%) on holdout after 1 adapter iteration; cost per 1k calls $0.844 before (est.), $0.0458 after."
  },
+ "eval_verdict": {
+  "site_id": "cs_06",
+  "decision": "MIGRATE",
+  "tier": "lightning",
+  "model": "nvidia/Nemotron-3_5-Lightning",
+  "parity_pct": 75.0,
+  "best_tier": null,
+  "best_score": null,
+  "iterations": 1,
+  "latency_delta_ms": null,
+  "cost_before_per_1k": 0.843875,
+  "cost_before_note": "est.: claude-haiku-4-5 $1.00/$5.00 per 1M (platform.claude.com/docs/zh-CN/models/haiku-4-5/overview, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 8 lightning holdout calls)",
+  "cost_after_per_1k": 0.0457575,
+  "sunset_risk": null,
+  "closed_reference_model": null,
+  "closed_reference_parity_pct": null,
+  "reason": "The summarize_thread function generates concise summaries from discussion threads using the current model, and migrating to the Lightning tier achieves equivalent quality while reducing cost. Lightning: judge mean 4.54 ≥ 4.0 (parity vs reference 75.0%) on holdout after 1 adapter iteration; cost per 1k calls $0.844 before (est.), $0.0458 after."
+ },
  "adapter": {
   "site_id": "cs_06",
   "version": 1,

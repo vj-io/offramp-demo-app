@@ -138,6 +138,24 @@
   "closed_reference_parity_pct": null,
   "reason": "The tool call step selects actions based on context and available tools, and Super tier matched reference behavior where lower tiers failed to do so. Super: parity vs reference 100.0% ≥ 95% on holdout after 0 adapter iterations; cost per 1k calls $3.59 before (est.), $0.33 after."
  },
+ "eval_verdict": {
+  "site_id": "cs_02",
+  "decision": "MIGRATE",
+  "tier": "super",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "parity_pct": 100.0,
+  "best_tier": null,
+  "best_score": null,
+  "iterations": 0,
+  "latency_delta_ms": null,
+  "cost_before_per_1k": 3.588,
+  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 5 super holdout calls)",
+  "cost_after_per_1k": 0.33024,
+  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5)",
+  "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
+  "closed_reference_parity_pct": null,
+  "reason": "The tool call step selects actions based on context and available tools, and Super tier matched reference behavior where lower tiers failed to do so. Super: parity vs reference 100.0% ≥ 95% on holdout after 0 adapter iterations; cost per 1k calls $3.59 before (est.), $0.33 after."
+ },
  "adapter": {
   "site_id": "cs_02",
   "version": 0,
