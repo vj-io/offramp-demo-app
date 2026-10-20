@@ -20,11 +20,11 @@ API_CHAINS = {
 # file -> (model, module-level constant holding the prompt)
 CHAT_SITES = {
     "inbox/triage.py": ("gpt-4o-mini", "TRIAGE_SYSTEM_PROMPT"),  # cs_01
-    "ops/agent_step.py": ("claude-sonnet-4-5", "AGENT_SYSTEM_PROMPT"),  # cs_02
+    "ops/agent_step.py": ("nvidia/nemotron-3-super-120b-a12b", "AGENT_SYSTEM_PROMPT"),  # cs_02
     "orders/extract.py": ("claude-sonnet-4-5", "EXTRACT_SYSTEM_PROMPT"),  # cs_03
-    "qa/rag_answer.py": ("gpt-4o", "RAG_SYSTEM_PROMPT"),  # cs_04
+    "qa/rag_answer.py": ("nvidia/Nemotron-3-Ultra-550b-a55b", "RAG_SYSTEM_PROMPT"),  # cs_04
     "refunds/plan.py": ("o3", "REFUND_POLICY"),  # cs_05
-    "summaries/summarize.py": ("claude-haiku-4-5", "SUMMARY_SYSTEM_PROMPT"),  # cs_06
+    "summaries/summarize.py": ("nvidia/Nemotron-3_5-Lightning", "SUMMARY_SYSTEM_PROMPT"),  # cs_06
 }
 
 

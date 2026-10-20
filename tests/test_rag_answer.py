@@ -29,9 +29,9 @@ def test_request_contract():
     answer_question(client, "Can I return it?", [REFUND, CANCEL])
 
     (call,) = client.calls
-    assert call["model"] == "gpt-4o"
+    assert call["model"] == "nvidia/Nemotron-3-Ultra-550b-a55b"
     assert call["messages"][0] == {"role": "system", "content": RAG_SYSTEM_PROMPT}
-    user = call["messages"][1]["content"]
+    user = call["messages"][-1]["content"]
     assert "[refund-policy] Refund policy\n30 days." in user
     assert "[cancel-subscription] Cancelling\nAny time." in user
     assert user.endswith("Customer question: Can I return it?")
@@ -42,7 +42,7 @@ def test_no_articles_is_said_explicitly():
 
     answer_question(client, "Gift cards?", [])
 
-    assert "(none found)" in client.calls[0]["messages"][1]["content"]
+    assert "(none found)" in client.calls[0]["messages"][-1]["content"]
 
 
 @pytest.mark.parametrize("case", CASES, ids=case_ids(CASES))
@@ -52,7 +52,7 @@ def test_every_fixture_question_is_sent_with_its_snippets(case):
 
     answer_question(client, case["question"], articles)
 
-    user = client.calls[0]["messages"][1]["content"]
+    user = client.calls[0]["messages"][-1]["content"]
     assert case["question"] in user
     for article in articles:
         assert f"[{article.id}] {article.title}" in user

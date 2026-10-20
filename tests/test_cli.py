@@ -34,6 +34,13 @@ def test_runs_a_fixture_case(
 ):
     monkeypatch.setattr(cli, "OpenAI", lambda: FakeOpenAI(openai_reply))
     monkeypatch.setattr(cli, "Anthropic", lambda: FakeAnthropic(*anthropic_blocks))
+    monkeypatch.setattr(
+        cli,
+        "token_factory_client",
+        (lambda: FakeAnthropic(*anthropic_blocks))
+        if command in ("next-step", "summarize")
+        else (lambda: FakeOpenAI(openai_reply)),
+    )
 
     code, out = run([command, str(FIXTURES / f"{fixtures}.json"), "--id", case_id], capsys)
 

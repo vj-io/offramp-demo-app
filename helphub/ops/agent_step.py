@@ -1,8 +1,9 @@
 """Pick the next tool for HelpHub's order-support agent."""
 
+import json
 from typing import Any
 
-from anthropic import Anthropic
+from openai import OpenAI
 from pydantic import BaseModel
 
 from helphub.models import ToolResult
@@ -68,15 +69,72 @@ class AgentAction(BaseModel):
     args: dict[str, Any]
 
 
-def next_action(client: Anthropic, ticket_text: str, history: list[ToolResult]) -> AgentAction:
+NEMOTRON_TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "lookup_order",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "order_id": {"type": "string", "description": "Order id, e.g. HH-48213"},
+                },
+                "required": ["order_id"],
+            },
+            "description": (
+                "Fetch an order's status, items, total and charges from the order system."
+            ),
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "issue_refund",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "order_id": {"type": "string", "description": "Order id, e.g. HH-48213"},
+                    "amount": {"type": "number", "description": "Refund amount, at most 200.00"},
+                    "currency": {"type": "string", "description": "ISO 4217 code of the order"},
+                    "reason": {
+                        "type": "string",
+                        "enum": ["damaged", "missing_item", "duplicate_charge", "other"],
+                    },
+                },
+                "required": ["order_id", "amount", "currency", "reason"],
+            },
+            "description": "Refund part or all of an order to the original payment method.",
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "escalate_to_human",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "reason": {"type": "string", "description": "One sentence for the human agent"},
+                    "priority": {"type": "string", "enum": ["low", "normal", "urgent"]},
+                },
+                "required": ["reason", "priority"],
+            },
+            "description": "Hand the ticket to a human support agent.",
+        },
+    },
+]
+
+
+def next_action(client: OpenAI, ticket_text: str, history: list[ToolResult]) -> AgentAction:
     steps = "\n".join(f"- {step.tool} returned: {step.output}" for step in history) or "(none yet)"
-    response = client.messages.create(
-        model="claude-sonnet-4-5",
+    response = client.chat.completions.create(
+        model="nvidia/nemotron-3-super-120b-a12b",
         max_tokens=512,
-        system=AGENT_SYSTEM_PROMPT,
-        tools=TOOLS,
-        tool_choice={"type": "any"},
+        temperature=0.0,
+        tools=NEMOTRON_TOOLS,
+        tool_choice="required",
+        extra_body={"chat_template_kwargs": {"enable_thinking": False}},
         messages=[
+            {"role": "system", "content": AGENT_SYSTEM_PROMPT},
             {
                 "role": "user",
                 "content": (
@@ -84,12 +142,14 @@ def next_action(client: Anthropic, ticket_text: str, history: list[ToolResult]) 
                     f"Tool results so far:\n{steps}\n\n"
                     "Choose the next tool."
                 ),
-            }
+            },
         ],
     )
-    for block in response.content:
-        if block.type == "tool_use" and block.name in TOOL_NAMES:
-            return AgentAction(tool=block.name, args=dict(block.input))
+    for block in response.choices[0].message.tool_calls or []:
+        if block.type == "function" and block.function.name in TOOL_NAMES:
+            return AgentAction(
+                tool=block.function.name, args=dict(json.loads(block.function.arguments))
+            )
     return AgentAction(
         tool="escalate_to_human",
         args={"reason": "The agent did not return a valid tool call.", "priority": "normal"},
