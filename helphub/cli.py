@@ -12,12 +12,12 @@ import json
 import sys
 from pathlib import Path
 
-from anthropic import Anthropic
 from openai import OpenAI
 
 from helphub.inbox.triage import triage_ticket
 from helphub.kb import Article, load_articles
 from helphub.models import ThreadMessage, ToolResult
+from helphub.offramp_client import token_factory_client
 from helphub.ops.agent_step import next_action
 from helphub.orders.extract import extract_order
 from helphub.qa.rag_answer import answer_question
@@ -29,14 +29,14 @@ from helphub.summaries.summarize import summarize_thread
 COMMANDS = {
     "triage": lambda c: triage_ticket(OpenAI(), c["subject"], c["body"]),
     "next-step": lambda c: next_action(
-        Anthropic(), c["ticket_text"], [ToolResult(**h) for h in c["history"]]
+        token_factory_client(), c["ticket_text"], [ToolResult(**h) for h in c["history"]]
     ).model_dump(),
     "answer": lambda c: answer_question(
-        OpenAI(), c["question"], [Article(**s) for s in c["snippets"]]
+        token_factory_client(), c["question"], [Article(**s) for s in c["snippets"]]
     ).model_dump(),
-    "refund": lambda c: plan_refund(OpenAI(), RefundRequest(**c)).model_dump(),
+    "refund": lambda c: plan_refund(token_factory_client(), RefundRequest(**c)).model_dump(),
     "summarize": lambda c: summarize_thread(
-        Anthropic(), [ThreadMessage(**m) for m in c["messages"]]
+        token_factory_client(), [ThreadMessage(**m) for m in c["messages"]]
     ),
 }
 
@@ -56,7 +56,9 @@ def main(argv: list[str] | None = None) -> int:
         hits = search_kb(OpenAI(), args.query, load_articles())
         result = [{"id": a.id, "title": a.title} for a in hits]
     elif args.command == "extract":
-        result = extract_order(Anthropic(), args.email.read_text(encoding="utf-8")).model_dump()
+        result = extract_order(
+            token_factory_client(), args.email.read_text(encoding="utf-8")
+        ).model_dump()
     else:
         cases = json.loads(args.fixtures.read_text(encoding="utf-8"))
         case = next((c for c in cases if c["id"] == args.id), None)
