@@ -56,12 +56,45 @@
   "iterations": 1,
   "latency_delta_ms": null,
   "cost_before_per_1k": 0.0344,
-  "cost_before_note": "est.: gpt-4o-mini $0.15/$0.60 per 1M (developers.openai.com/api/docs/models/gpt-4o-mini, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 9 lightning holdout calls)",
+  "cost_before_note": "est.: gpt-4o-mini $0.15/$0.60 per 1M (developers.openai.com/api/docs/models/gpt-4o-mini, confirmed via Tavily Extract 2026-10-22, as in pricing.yaml) x tokens measured on the Token Factory call (mean of 9 lightning holdout calls)",
   "cost_after_per_1k": 0.01376,
   "sunset_risk": null,
   "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
   "closed_reference_parity_pct": null,
-  "reason": "the reply holds no complete edit block; last failure: patch rejected (patch rules): search text not found in tests/test_triage.py: 'def test_request_contract():\\n    client = FakeOpenAI(\"returns_refunds\")\\n\\n    ass'"
+  "weak_references": {},
+  "patch_failure": {
+   "kind": "search_miss",
+   "last": null,
+   "tries": 4,
+   "model_edit": true,
+   "files": [
+    "tests/test_triage.py"
+   ],
+   "tests": []
+  },
+  "holdout_cases": 9,
+  "holdout_passed": 9,
+  "parity_lower_pct": 70.0,
+  "judge_mean": null,
+  "judge_min": null,
+  "retires_on": null,
+  "price_evidence": {
+   "method": "extract (confirms table)",
+   "query": "gpt-4o-mini (gpt 4o mini) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+   "quote": "Input $0.15 Cached input $0.075 Output $0.60",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": {
+   "model": "nvidia/Nemotron-3_5-Lightning",
+   "input_usd_per_m": 0.06,
+   "output_usd_per_m": 0.24,
+   "via": "token_factory_api",
+   "source": "Token Factory model API, 2026-10-22"
+  },
+  "failed_gate": null,
+  "reason": "patch rejected (patch rules): search text not found in tests/test_triage.py: '@pytest.mark.parametrize(\"ticket\", TICKETS, ids=case_ids(TICKETS))\\ndef test_ever'; applied by name, this edit would drop `assert triage_ticket(client, ticket[\"subject\"], ticket[\"body\"]) is Queue.SHIPPING`, `assert ticket[\"subject\"] in user_message`, `assert ticket[\"body\"] in user_message`, which your SEARCH never quoted: keep them, or quote them to change them"
  },
  "eval_verdict": {
   "site_id": "cs_01",
@@ -74,11 +107,29 @@
   "iterations": 1,
   "latency_delta_ms": null,
   "cost_before_per_1k": 0.0344,
-  "cost_before_note": "est.: gpt-4o-mini $0.15/$0.60 per 1M (developers.openai.com/api/docs/models/gpt-4o-mini, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 9 lightning holdout calls)",
+  "cost_before_note": "est.: gpt-4o-mini $0.15/$0.60 per 1M (developers.openai.com/api/docs/models/gpt-4o-mini, confirmed via Tavily Extract 2026-10-22, as in pricing.yaml) x tokens measured on the Token Factory call (mean of 9 lightning holdout calls)",
   "cost_after_per_1k": 0.01376,
   "sunset_risk": null,
   "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
   "closed_reference_parity_pct": null,
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 9,
+  "holdout_passed": 9,
+  "parity_lower_pct": 70.0,
+  "judge_mean": null,
+  "judge_min": null,
+  "retires_on": null,
+  "price_evidence": {
+   "method": "extract (confirms table)",
+   "query": "gpt-4o-mini (gpt 4o mini) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+   "quote": "Input $0.15 Cached input $0.075 Output $0.60",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": null,
+  "failed_gate": null,
   "reason": "The triage ticket function classifies support tickets into categories like technical support or account access using few-shot examples; Lightning tier matched reference outputs on held-out cases while being the cheapest option. Lightning: parity vs reference 100.0% ≥ 95% on holdout after 1 adapter iteration; cost per 1k calls $0.0344 before (est.), $0.0138 after."
  },
  "adapter": {
@@ -161,86 +212,100 @@
      "passed": false,
      "score": 0.0,
      "detail": "expected 'technical_support', got 'account_access'",
-     "error_category": "wrong_label"
+     "error_category": "wrong_label",
+     "reference_score": null
     },
     {
      "case_id": "cs_01:003",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:013",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:014",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:020",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:021",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:022",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:023",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:024",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 12,
+   "parity_lower_pct": 64.6
   },
   {
    "site_id": "cs_01",
@@ -263,86 +328,100 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:003",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:013",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:014",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:020",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:021",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:022",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:023",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:024",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 12,
+   "parity_lower_pct": 75.7
   },
   {
    "site_id": "cs_01",
@@ -365,65 +444,76 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:004",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:005",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:008",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:012",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:016",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:017",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:018",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_01:019",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 9,
+   "parity_lower_pct": 70.0
   }
  ]
 }

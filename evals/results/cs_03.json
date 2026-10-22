@@ -137,7 +137,7 @@
  },
  "verdict": {
   "site_id": "cs_03",
-  "decision": "MANUAL_REVIEW",
+  "decision": "MIGRATE",
   "tier": "super",
   "model": "nvidia/nemotron-3-super-120b-a12b",
   "parity_pct": 100.0,
@@ -146,12 +146,36 @@
   "iterations": 1,
   "latency_delta_ms": null,
   "cost_before_per_1k": 3.165,
-  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 3 super holdout calls)",
+  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5/overview, fetched via Tavily 2026-10-22) x tokens measured on the Token Factory call (mean of 3 super holdout calls)",
   "cost_after_per_1k": 0.2761,
-  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5)",
+  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5/overview)",
   "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
   "closed_reference_parity_pct": null,
-  "reason": "the reply holds no complete edit block; last failure: repo checks failed on the patch (docker): FAILED tests/test_extract.py::test_request_contract - pydantic_core._pydantic... | FAILED tests/test_extract.py::test_joins_multiple_text_blocks - pydantic_core... | FAILED tests/test_extract.py::test_every_fixture_email_is_sent_and_parsed[…] (13 cases) | E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ChatCompletion | E       choices.0.message.content | E         Input should be a valid string [type=string_type, input_value=TextBlock(citations=None,...damaged\"}', type='text'), input_type=TextBlock] | E           For further information visit https://errors.pydantic.dev/2.14/v/string_type | E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ChatCompletion | E       choices.0.message.content"
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 3,
+  "holdout_passed": 3,
+  "parity_lower_pct": 43.8,
+  "judge_mean": null,
+  "judge_min": null,
+  "retires_on": "2026-11-30",
+  "price_evidence": {
+   "method": "search",
+   "query": "claude-sonnet-4-5 (claude sonnet 4.5) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://platform.claude.com/docs/en/models/sonnet-4-5/overview",
+   "quote": "Input pricing : $3/ MTok Output pricing : $15",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": {
+   "model": "nvidia/nemotron-3-super-120b-a12b",
+   "input_usd_per_m": 0.3,
+   "output_usd_per_m": 0.9,
+   "via": "token_factory_api",
+   "source": "Token Factory model API, 2026-10-22"
+  },
+  "failed_gate": null,
+  "reason": "The extract_order function extracts order details including currency from emails; Super tier matched reference behavior while lower tiers failed, justifying migration. Super: parity vs reference 100.0% ≥ 95% on holdout after 1 adapter iteration; cost per 1k calls $3.17 before (est.), $0.276 after."
  },
  "eval_verdict": {
   "site_id": "cs_03",
@@ -164,11 +188,29 @@
   "iterations": 1,
   "latency_delta_ms": null,
   "cost_before_per_1k": 3.165,
-  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 3 super holdout calls)",
+  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5/overview, fetched via Tavily 2026-10-22) x tokens measured on the Token Factory call (mean of 3 super holdout calls)",
   "cost_after_per_1k": 0.2761,
-  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5)",
+  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5/overview)",
   "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
   "closed_reference_parity_pct": null,
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 3,
+  "holdout_passed": 3,
+  "parity_lower_pct": 43.8,
+  "judge_mean": null,
+  "judge_min": null,
+  "retires_on": "2026-11-30",
+  "price_evidence": {
+   "method": "search",
+   "query": "claude-sonnet-4-5 (claude sonnet 4.5) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://platform.claude.com/docs/en/models/sonnet-4-5/overview",
+   "quote": "Input pricing : $3/ MTok Output pricing : $15",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": null,
+  "failed_gate": null,
   "reason": "The extract_order function extracts order details including currency from emails; Super tier matched reference behavior while lower tiers failed, justifying migration. Super: parity vs reference 100.0% ≥ 95% on holdout after 1 adapter iteration; cost per 1k calls $3.17 before (est.), $0.276 after."
  },
  "adapter": {
@@ -346,93 +388,108 @@
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: currency",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:002",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:004",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:008",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: order_date",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:012",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:013",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: currency",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:014",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: customer_name",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:016",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:017",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:018",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: order_date",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 13,
+   "parity_lower_pct": 35.5
   },
   {
    "site_id": "cs_03",
@@ -461,93 +518,108 @@
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: currency",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:002",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:004",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:008",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: order_date",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:012",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:013",
      "passed": false,
      "score": 0.7142857142857143,
      "detail": "field_match=0.714; wrong: customer_name, customer_email",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:014",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: customer_name",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:016",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:017",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:018",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: order_date",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 13,
+   "parity_lower_pct": 35.5
   },
   {
    "site_id": "cs_03",
@@ -578,93 +650,108 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:002",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:004",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:008",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: order_date",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:012",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: customer_name",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:013",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: customer_name",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:014",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: customer_name",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:016",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: customer_name",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:017",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: order_id",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:018",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: order_date",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 13,
+   "parity_lower_pct": 23.2
   },
   {
    "site_id": "cs_03",
@@ -691,93 +778,108 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:002",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:004",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:008",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:012",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: customer_name",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:013",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:014",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:016",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: customer_name",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:017",
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: order_id",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:018",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 13,
+   "parity_lower_pct": 49.7
   },
   {
    "site_id": "cs_03",
@@ -802,93 +904,108 @@
      "passed": false,
      "score": 0.8571428571428571,
      "detail": "field_match=0.857; wrong: currency",
-     "error_category": "wrong_value"
+     "error_category": "wrong_value",
+     "reference_score": null
     },
     {
      "case_id": "cs_03:002",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:004",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:008",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:012",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:013",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:014",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:016",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:017",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:018",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 13,
+   "parity_lower_pct": 66.6
   },
   {
    "site_id": "cs_03",
@@ -911,93 +1028,108 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:002",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:004",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:008",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:012",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:013",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:014",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:016",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:017",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:018",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 13,
+   "parity_lower_pct": 77.1
   },
   {
    "site_id": "cs_03",
@@ -1020,23 +1152,28 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:010",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_03:019",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 3,
+   "parity_lower_pct": 43.8
   }
  ]
 }

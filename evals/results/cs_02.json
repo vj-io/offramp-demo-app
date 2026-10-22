@@ -131,11 +131,35 @@
   "iterations": 0,
   "latency_delta_ms": null,
   "cost_before_per_1k": 3.588,
-  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 5 super holdout calls)",
+  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5/overview, fetched via Tavily 2026-10-22) x tokens measured on the Token Factory call (mean of 5 super holdout calls)",
   "cost_after_per_1k": 0.33024,
-  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5)",
+  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5/overview)",
   "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
   "closed_reference_parity_pct": null,
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 5,
+  "holdout_passed": 5,
+  "parity_lower_pct": 56.5,
+  "judge_mean": null,
+  "judge_min": null,
+  "retires_on": "2026-11-30",
+  "price_evidence": {
+   "method": "search",
+   "query": "claude-sonnet-4-5 (claude sonnet 4.5) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://platform.claude.com/docs/en/models/sonnet-4-5/overview",
+   "quote": "Input pricing : $3/ MTok Output pricing : $15",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": {
+   "model": "nvidia/nemotron-3-super-120b-a12b",
+   "input_usd_per_m": 0.3,
+   "output_usd_per_m": 0.9,
+   "via": "token_factory_api",
+   "source": "Token Factory model API, 2026-10-22"
+  },
+  "failed_gate": null,
   "reason": "The tool call step selects actions based on context and available tools, and Super tier matched reference behavior where lower tiers failed to do so. Super: parity vs reference 100.0% ≥ 95% on holdout after 0 adapter iterations; cost per 1k calls $3.59 before (est.), $0.33 after."
  },
  "eval_verdict": {
@@ -149,11 +173,29 @@
   "iterations": 0,
   "latency_delta_ms": null,
   "cost_before_per_1k": 3.588,
-  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 5 super holdout calls)",
+  "cost_before_note": "est.: claude-sonnet-4-5 $3.00/$15.00 per 1M (platform.claude.com/docs/en/models/sonnet-4-5/overview, fetched via Tavily 2026-10-22) x tokens measured on the Token Factory call (mean of 5 super holdout calls)",
   "cost_after_per_1k": 0.33024,
-  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5)",
+  "sunset_risk": "Claude Sonnet 4.5 is deprecated: it is still functional but no longer recommended, and retires on November 30, 2026. (https://platform.claude.com/docs/en/models/sonnet-4-5/overview)",
   "closed_reference_model": "claude-sonnet-5.5 (via Claude Code; not the repo's source model)",
   "closed_reference_parity_pct": null,
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 5,
+  "holdout_passed": 5,
+  "parity_lower_pct": 56.5,
+  "judge_mean": null,
+  "judge_min": null,
+  "retires_on": "2026-11-30",
+  "price_evidence": {
+   "method": "search",
+   "query": "claude-sonnet-4-5 (claude sonnet 4.5) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://platform.claude.com/docs/en/models/sonnet-4-5/overview",
+   "quote": "Input pricing : $3/ MTok Output pricing : $15",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": null,
+  "failed_gate": null,
   "reason": "The tool call step selects actions based on context and available tools, and Super tier matched reference behavior where lower tiers failed to do so. Super: parity vs reference 100.0% ≥ 95% on holdout after 0 adapter iterations; cost per 1k calls $3.59 before (est.), $0.33 after."
  },
  "adapter": {
@@ -307,72 +349,84 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:004",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['escalate_to_human'], got ['lookup_order']",
-     "error_category": "wrong_tool"
+     "error_category": "wrong_tool",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:005",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:008",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:009",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:012",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:014",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:015",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 10,
+   "parity_lower_pct": 59.5
   },
   {
    "site_id": "cs_02",
@@ -406,72 +460,84 @@
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:004",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['escalate_to_human'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:005",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:006",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:008",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:009",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:011",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:012",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:014",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:015",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 10,
+   "parity_lower_pct": 0.0
   },
   {
    "site_id": "cs_02",
@@ -505,72 +571,84 @@
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:004",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['escalate_to_human'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:005",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:006",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:008",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:009",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:011",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:012",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:014",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:015",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 10,
+   "parity_lower_pct": 0.0
   },
   {
    "site_id": "cs_02",
@@ -604,72 +682,84 @@
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:004",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['escalate_to_human'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:005",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:006",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:008",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:009",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:011",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:012",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:014",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['issue_refund'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     },
     {
      "case_id": "cs_02:015",
      "passed": false,
      "score": 0.0,
      "detail": "expected ['lookup_order'], candidate called no tool",
-     "error_category": "no_tool_call"
+     "error_category": "no_tool_call",
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 10,
+   "parity_lower_pct": 0.0
   },
   {
    "site_id": "cs_02",
@@ -692,72 +782,84 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:004",
      "passed": true,
      "score": 1.0,
      "detail": "free-text arguments not value-compared: escalate_to_human.priority, escalate_to_human.reason",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:005",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:008",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:009",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:012",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:014",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:015",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 10,
+   "parity_lower_pct": 72.2
   },
   {
    "site_id": "cs_02",
@@ -780,37 +882,44 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:007",
      "passed": true,
      "score": 1.0,
      "detail": "free-text arguments not value-compared: escalate_to_human.priority, escalate_to_human.reason",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:016",
      "passed": true,
      "score": 1.0,
      "detail": "free-text arguments not value-compared: escalate_to_human.priority, escalate_to_human.reason",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:018",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_02:019",
      "passed": true,
      "score": 1.0,
      "detail": "free-text arguments not value-compared: escalate_to_human.priority, escalate_to_human.reason",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 5,
+   "parity_lower_pct": 56.5
   }
  ]
 }

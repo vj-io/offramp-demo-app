@@ -49,11 +49,35 @@
   "iterations": 1,
   "latency_delta_ms": null,
   "cost_before_per_1k": 2.1041666666666665,
-  "cost_before_note": "est.: gpt-4o $2.50/$10.00 per 1M (developers.openai.com/api/docs/pricing, pricing.yaml as of 2026-10-19; fallback: Tavily price not used (the cited page prints no unambiguous price for exactly this model)) x tokens measured on the Token Factory call (mean of 9 ultra holdout calls)",
+  "cost_before_note": "est.: gpt-4o $2.50/$10.00 per 1M (developers.openai.com/api/docs/models/gpt-4o, confirmed via Tavily Extract 2026-10-22, as in pricing.yaml) x tokens measured on the Token Factory call (mean of 9 ultra holdout calls)",
   "cost_after_per_1k": 0.7738888888888888,
   "sunset_risk": null,
   "closed_reference_model": null,
   "closed_reference_parity_pct": null,
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 9,
+  "holdout_passed": 9,
+  "parity_lower_pct": 70.0,
+  "judge_mean": 5.0,
+  "judge_min": 5.0,
+  "retires_on": null,
+  "price_evidence": {
+   "method": "extract (confirms table)",
+   "query": "gpt-4o (gpt 4o) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://developers.openai.com/api/docs/models/gpt-4o",
+   "quote": "Input $2.50 Cached input $1.25 Output $10.00",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": {
+   "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+   "input_usd_per_m": 1.0,
+   "output_usd_per_m": 3.0,
+   "via": "token_factory_api",
+   "source": "Token Factory model API, 2026-10-22"
+  },
+  "failed_gate": null,
   "reason": "The answer_question function generates free-text responses using retrieval-augmented generation, and migration is advised because the Ultra tier matched reference outputs while lower-cost tiers fell short. Ultra: judge mean 5.00 ≥ 4.0 (parity vs reference 100.0%) on holdout after 1 adapter iteration; cost per 1k calls $2.10 before (est.), $0.774 after."
  },
  "eval_verdict": {
@@ -67,11 +91,29 @@
   "iterations": 1,
   "latency_delta_ms": null,
   "cost_before_per_1k": 2.1041666666666665,
-  "cost_before_note": "est.: gpt-4o $2.50/$10.00 per 1M (developers.openai.com/api/docs/pricing, pricing.yaml as of 2026-10-19; fallback: Tavily price not used (the cited page prints no unambiguous price for exactly this model)) x tokens measured on the Token Factory call (mean of 9 ultra holdout calls)",
+  "cost_before_note": "est.: gpt-4o $2.50/$10.00 per 1M (developers.openai.com/api/docs/models/gpt-4o, confirmed via Tavily Extract 2026-10-22, as in pricing.yaml) x tokens measured on the Token Factory call (mean of 9 ultra holdout calls)",
   "cost_after_per_1k": 0.7738888888888888,
   "sunset_risk": null,
   "closed_reference_model": null,
   "closed_reference_parity_pct": null,
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 9,
+  "holdout_passed": 9,
+  "parity_lower_pct": 70.0,
+  "judge_mean": 5.0,
+  "judge_min": 5.0,
+  "retires_on": null,
+  "price_evidence": {
+   "method": "extract (confirms table)",
+   "query": "gpt-4o (gpt 4o) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://developers.openai.com/api/docs/models/gpt-4o",
+   "quote": "Input $2.50 Cached input $1.25 Output $10.00",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": null,
+  "failed_gate": null,
   "reason": "The answer_question function generates free-text responses using retrieval-augmented generation, and migration is advised because the Ultra tier matched reference outputs while lower-cost tiers fell short. Ultra: judge mean 5.00 ≥ 4.0 (parity vs reference 100.0%) on holdout after 1 adapter iteration; cost per 1k calls $2.10 before (est.), $0.774 after."
  },
  "adapter": {
@@ -171,107 +213,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer A is concise and fully supported; Answer B adds extra details not asked for but still supported.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully supported and complete; Answer B cites each sentence separately.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": false,
      "score": 3.0,
      "detail": "judge 3.00 vs reference 5.00; candidate is A: Answer A lacks citations and adds unsupported customs claim; Answer B is fully cited and accurate.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully supported and complete; Answer B cites each sentence.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully supported and complete; Answer B cites each sentence.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": false,
      "score": 3.666666666666667,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Both answers correctly note missing question and offer human agent; no citations needed.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": false,
      "score": 2.166666666666667,
      "detail": "judge 2.17 vs reference 5.00; candidate is A: Answer A invents warehouse info not in evidence; Answer B correctly states lack of info and offers human agent.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully supported and complete; Answer B cites each sentence.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 2.8333333333333335,
      "detail": "judge 2.83 vs reference 5.00; candidate is A: Answer A invents apology and implies team can fix app; Answer B correctly states no info and offers human agent.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: Answer A states specific upcoming Sunday not in evidence; Answer B correctly quotes recurring schedule.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": false,
      "score": 2.5,
      "detail": "judge 2.50 vs reference 5.00; candidate is A: Answer A adds unsupported claims (AES-256, GDPR, automatic updates); Answer B stays within excerpt and offers human agent.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:020",
      "passed": false,
      "score": 2.166666666666667,
      "detail": "judge 2.17 vs reference 2.17; candidate is A: Both answers cite non-existent excerpt IDs; no evidence supports system status claims.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 2.166666666666667
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 2.5,
      "detail": "judge 2.50 vs reference 5.00; candidate is A: Answer A misstates policy (says 30 days regardless of use) and uses wrong excerpt ID; Answer B correctly applies conditions.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": false,
      "score": 2.5,
      "detail": "judge 2.50 vs reference 5.00; candidate is A: Answer A incorrectly says no refund after three weeks for annual plan; Answer B correctly explains prorated refund minus 3% fee.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 2.8333333333333335,
      "detail": "judge 2.83 vs reference 5.00; candidate is A: Answer A ignores excerpt and refuses to answer; Answer B correctly uses excerpt and offers human agent.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 15.1
   },
   {
    "site_id": "cs_04",
@@ -301,107 +360,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer A is concise and fully supported; Answer B adds extra unsolicited details but remains accurate and well-cited.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers accurately cite the excerpt; Answer B cites each sentence separately, which is acceptable.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly extract EU shipping time for Austria and cite the source; Answer B adds warehouse dispatch and business-day definition, still supported.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly translate and cite the 2FA activation steps; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers give the correct download steps and cite the excerpt; Answer B adds the email detail, also supported.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": false,
      "score": 4.0,
      "detail": "judge 4.00 vs reference 5.00; candidate is A: Customer question is empty; both assistants correctly state they have no question and offer human handoff. Answer B is slightly more conversational but within guidelines.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": false,
      "score": 1.3333333333333335,
      "detail": "judge 1.33 vs reference 5.00; candidate is A: Answer A incorrectly asserts the EU warehouse ships to Zürich; the excerpt only mentions customs delays for Switzerland. Answer B correctly says it lacks that information and cites the relevant customs detail.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers accurately reproduce the account-deletion steps with proper citations.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 3.833333333333333,
      "detail": "judge 3.83 vs reference 5.00; candidate is A: Answer A implies the technical team can fix the app loading issue, which the excerpt does not guarantee. Answer B honestly states it lacks that information, cites the support contact, and offers human handoff.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly state the recurring Sunday maintenance window and cite the source; Answer B adds the next-Sunday inference, still supported.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 4.33; candidate is A: Answer A fully answers from the excerpt with citation. Answer B claims missing step-by-step info and offers human handoff, though the excerpt does describe what HelpHub is and its features.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 4.333333333333333
     },
     {
      "case_id": "cs_04:020",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 4.166666666666667,
      "detail": "judge 4.17 vs reference 5.00; candidate is A: Answer A omits citation for the 30-day and condition statements and adds unsupported interpretation. Answer B cites both facts correctly and notes the used item likely fails requirements, offering human handoff.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": false,
      "score": 3.6666666666666665,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A addresses only the annual plan in Spanish but omits citations. Answer B covers both annual plan and physical item, cites the policy, and stays in the customer's language.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 1.0,
      "detail": "judge 1.00 vs reference 5.00; candidate is A: Answer A ignores the provided reset-password excerpt and gives unsupported advice. Answer B correctly cites the excerpt for the verified-device path and admits lack of verification details, offering human handoff.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 35.7
   },
   {
    "site_id": "cs_04",
@@ -433,107 +509,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer A is concise and fully supported; Answer B adds extra details not asked for but still supported.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": false,
      "score": 3.0,
      "detail": "judge 3.00 vs reference 5.00; candidate is A: Answer A misses all required citations; Answer B cites every fact correctly.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are accurate and cited; Answer B includes extra context but stays within limits.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly cite the excerpt and address the question in Spanish.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are accurate, cited, and in Japanese as requested.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": false,
      "score": 3.0,
      "detail": "judge 3.00 vs reference 4.33; candidate is A: Answer A follows the instruction for missing questions; Answer B is conversational but not the prescribed wording.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 4.333333333333333
     },
     {
      "case_id": "cs_04:012",
      "passed": false,
      "score": 1.0,
      "detail": "judge 1.00 vs reference 5.00; candidate is A: Answer A invents a fact not in the excerpt; Answer B correctly says the information is missing and offers a human agent.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully supported and correctly formatted.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 3.0,
      "detail": "judge 3.00 vs reference 5.00; candidate is A: Answer A implies the KB solves the specific app issue; Answer B honestly says it lacks that info and offers human help.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly cite the maintenance schedule; Answer B adds a helpful inference but stays grounded.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 4.67; candidate is A: Answer A fully answers from the excerpt; Answer B omits the founding year and customer count, making it less complete.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 4.666666666666666
     },
     {
      "case_id": "cs_04:020",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 2.0,
      "detail": "judge 2.00 vs reference 5.00; candidate is A: Answer A cites a non-existent excerpt ID; Answer B uses the correct ID and accurately reflects the policy.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": false,
      "score": 3.6666666666666665,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A misses citations and omits the physical-item refund detail; Answer B cites correctly and covers both subscription and physical-item rules.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 1.0,
      "detail": "judge 1.00 vs reference 5.00; candidate is A: Answer A invents an 'admin password' claim and cites a missing excerpt; Answer B correctly cites the KB and offers human help for the unverified device.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 24.8
   },
   {
    "site_id": "cs_04",
@@ -561,107 +654,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer A is concise and fully supported; Answer B adds extra details not asked for but still supported.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully supported and complete; Answer B includes the extra clause about email access which is in the excerpt.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": false,
      "score": 3.666666666666667,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A correctly cites EU shipping time for Austria; Answer B adds warehouse dispatch time and business-day definition, all supported.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers accurately translate and cite the 2FA activation steps; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly explain invoice download and email delivery, fully cited.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: No customer question was provided; both assistants properly ask for clarification and offer human handoff.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": false,
      "score": 2.0,
      "detail": "judge 2.00 vs reference 5.00; candidate is A: Answer A incorrectly claims the EU warehouse ships to Zürich (excerpt only mentions customs delays); Answer B correctly states lack of warehouse info and cites customs delay.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers fully cite the account-deletion steps; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: Answer A implies the team can fix the app (unsupported); Answer B correctly says it lacks info on the app issue and offers human handoff.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers cite the maintenance window; Answer B adds the next-Sunday inference and unavailability note, all supported.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 4.67; candidate is A: Answer A fully answers from the FAQ excerpt; Answer B omits founding year, company count, and security details, making it incomplete.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 4.666666666666666
     },
     {
      "case_id": "cs_04:020",
      "passed": false,
      "score": 1.0,
      "detail": "judge 1.00 vs reference 1.00; candidate is A: Answer A invents a non-existent excerpt [service-status-ja]; Answer B invents two non-existent excerpts [service-status-ja] and [service-status-ja]. Neither cites the provided [service-status-ja].",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 1.0
     },
     {
      "case_id": "cs_04:021",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer A correctly states 30-day window and condition requirements, offers human agent; Answer B similarly but adds assumption about used item not qualifying (supported). Both good.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer A addresses annual plan after three weeks (partial) and physical item; Answer B covers both annual and physical with correct policy details. Both supported.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer A correctly cites reset-password for verified-device path and offers human agent; Answer B similarly but omits the verified-device detail. Both grounded.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 48.0
   },
   {
    "site_id": "cs_04",
@@ -692,107 +802,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer A is concise and fully supported; Answer B adds extra details not asked for but still grounded.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully grounded and complete; Answer B cites each sentence separately.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": false,
      "score": 3.333333333333333,
      "detail": "judge 3.33 vs reference 5.00; candidate is A: Answer A incorrectly states domestic shipping times for Austria (an EU country); Answer B correctly cites EU delivery estimates.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully grounded and complete; Answer B is more concise.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 4.833333333333334,
      "detail": "judge 4.83 vs reference 5.00; candidate is A: Both answers correctly cite the excerpt and answer the question in Japanese.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly note the missing question and offer to help; no excerpt needed.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": false,
      "score": 3.6666666666666665,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A adds unsupported claim about EU warehouse; Answer B correctly states lack of info and cites customs delay.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are fully grounded and complete.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 3.6666666666666665,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A claims the team can help with the app not loading, which is not in the excerpt; Answer B correctly says it lacks that info and offers human agent.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly cite the maintenance schedule; Answer B adds the temporary unavailability detail.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": false,
      "score": 1.8333333333333335,
      "detail": "judge 1.83 vs reference 2.50; candidate is A: Answer A invents facts not in the excerpt (founding year, companies, encryption); Answer B cites wrong excerpt IDs and lacks info.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 2.5
     },
     {
      "case_id": "cs_04:020",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 3.6666666666666665,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A adds unsupported recommendation to contact support; Answer B correctly states the 30-day window and condition requirements.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 4.67; candidate is A: Answer A correctly says it lacks info on combined case and offers human agent; Answer B gives specific refund details for each but does not address the combined scenario.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 4.666666666666666
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 3.5,
      "detail": "judge 3.50 vs reference 5.00; candidate is A: Answer A adds unsupported claim about admin passwords; Answer B correctly cites the excerpt and offers human agent.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 30.1
   },
   {
    "site_id": "cs_04",
@@ -822,107 +949,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": true,
      "score": 4.833333333333334,
      "detail": "judge 4.83 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": false,
      "score": 3.1666666666666665,
      "detail": "judge 3.17 vs reference 5.00; candidate is A: A guesses about EU warehouse shipping to Zürich; B correctly says it lacks that info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 3.833333333333333,
      "detail": "judge 3.83 vs reference 5.00; candidate is A: A claims the team can help with the app not loading, which the excerpt does not state; B correctly says it lacks that info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": false,
      "score": 2.5,
      "detail": "judge 2.50 vs reference 5.00; candidate is A: A invents facts not in the excerpt (founding year, number of companies, encryption, GDPR); B correctly says it lacks detailed info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:020",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: A adds unsupported recommendation to contact support; B correctly states policy and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": false,
      "score": 4.166666666666666,
      "detail": "judge 4.17 vs reference 5.00; candidate is A: A says it lacks complete info but still answers partially and offers human agent; B answers fully from the excerpt",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 4.0,
      "detail": "judge 4.00 vs reference 5.00; candidate is A: A adds unsupported claim about admin passwords and security protocols; B correctly follows the excerpt and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 35.7
   },
   {
    "site_id": "cs_04",
@@ -952,107 +1096,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": true,
      "score": 4.833333333333334,
      "detail": "judge 4.83 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": false,
      "score": 3.1666666666666665,
      "detail": "judge 3.17 vs reference 5.00; candidate is A: A guesses about EU warehouse shipping to Zürich; B correctly says it lacks that info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 3.833333333333333,
      "detail": "judge 3.83 vs reference 5.00; candidate is A: A claims the team can help with the app not loading, which the excerpt does not state; B correctly says it lacks that info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": false,
      "score": 2.5,
      "detail": "judge 2.50 vs reference 5.00; candidate is A: A invents facts not in the excerpt (founding year, number of companies, encryption, GDPR); B correctly says it lacks detailed info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:020",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: A adds unsupported recommendation to contact support; B correctly states policy and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": false,
      "score": 4.166666666666666,
      "detail": "judge 4.17 vs reference 5.00; candidate is A: A says it lacks complete info but still answers partially and offers human agent; B answers fully from the excerpt",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 4.0,
      "detail": "judge 4.00 vs reference 5.00; candidate is A: A adds unsupported claim about admin passwords and security protocols; B correctly follows the excerpt and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 35.7
   },
   {
    "site_id": "cs_04",
@@ -1082,107 +1243,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": true,
      "score": 4.833333333333334,
      "detail": "judge 4.83 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": false,
      "score": 3.1666666666666665,
      "detail": "judge 3.17 vs reference 5.00; candidate is A: A guesses about EU warehouse shipping to Zürich; B correctly says it lacks that info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 3.833333333333333,
      "detail": "judge 3.83 vs reference 5.00; candidate is A: A claims the team can help with the app not loading, which the excerpt does not state; B correctly says it lacks that info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": false,
      "score": 2.5,
      "detail": "judge 2.50 vs reference 5.00; candidate is A: A invents facts not in the excerpt (founding year, number of companies, encryption, GDPR); B correctly says it lacks detailed info and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:020",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: A adds unsupported recommendation to contact support; B correctly states policy and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": false,
      "score": 4.166666666666666,
      "detail": "judge 4.17 vs reference 5.00; candidate is A: A says it lacks complete info but still answers partially and offers human agent; B answers fully from the excerpt",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 4.0,
      "detail": "judge 4.00 vs reference 5.00; candidate is A: A adds unsupported claim about admin passwords and security protocols; B correctly follows the excerpt and offers human agent",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 35.7
   },
   {
    "site_id": "cs_04",
@@ -1211,107 +1389,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are accurate and cite the source; B adds extra details not asked for but still grounded.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: Both answers fully cover the excerpt and cite correctly; no issues.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly state EU shipping times for Austria and cite the source; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers accurately translate the 2FA activation steps and cite the source; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly explain how to download invoices and cite the source; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly note the missing question and offer to help; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers honestly state the excerpt doesn't specify warehouse routing, cite the relevant fact, and offer a human agent; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers accurately translate the account deletion steps and cite the source; no issues.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers cite the support contact info and offer a human agent; A is friendlier but both are grounded.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers state the recurring Sunday maintenance window and cite the source; B adds a helpful inference about the next occurrence.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": false,
      "score": 2.3333333333333335,
      "detail": "judge 2.33 vs reference 4.33; candidate is A: A invents facts not in the excerpt (founding year, company count, encryption details); B correctly summarizes the excerpt and admits missing details.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 4.333333333333333
     },
     {
      "case_id": "cs_04:020",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 3.3333333333333335,
      "detail": "judge 3.33 vs reference 5.00; candidate is A: Both answers correctly apply the return policy conditions and cite the source; no issues.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: Both answers accurately reflect the refund policy for annual plans and physical items, citing the source; no issues.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 4.666666666666666,
      "detail": "judge 4.67 vs reference 5.00; candidate is A: Both answers correctly state the fallback procedure from the excerpt and refuse the admin password request; no issues.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 41.7
   },
   {
    "site_id": "cs_04",
@@ -1342,107 +1537,124 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Answer B adds extra details not asked for but still grounded; both are correct and concise.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:003",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: Both answers are fully grounded and complete; B includes the extra clause about lost email access which is in the excerpt.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:004",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly cite the excerpt and answer in German; B adds the 1 business day dispatch detail which is in the excerpt.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:005",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: Both answers are accurate Spanish translations of the excerpt; B uses mixed English/Spanish labels but still cites correctly.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly explain how to download invoices in Japanese; B includes the email detail also in the excerpt.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both correctly note the missing question and offer help; A is more direct, B is slightly more conversational.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:012",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both correctly state the excerpt doesn't specify warehouse for Zürich and offer human agent; B adds the customs delay detail from the excerpt.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:015",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: Both are complete Spanish answers citing the excerpt; B repeats the citation per sentence but that's acceptable.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:016",
      "passed": false,
      "score": 3.6666666666666665,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A only gives contact info; B acknowledges the specific app issue isn't in the excerpt, offers contact info and human agent — more complete per instructions.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:018",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both cite the maintenance schedule; B adds inference about next Sunday and unavailability, which is reasonable from the excerpt.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:019",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 4.33; candidate is A: Answer A fully answers from the excerpt; B claims missing step-by-step info and offers human agent unnecessarily.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 4.333333333333333
     },
     {
      "case_id": "cs_04:020",
      "passed": false,
      "score": 1.0,
      "detail": "judge 1.00 vs reference 1.00; candidate is A: Answer A invents a non-existent excerpt [service-status-ja]; Answer B invents two non-existent excerpts and contradicts the provided [service-status-ja] which only mentions maintenance.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 1.0
     },
     {
      "case_id": "cs_04:021",
      "passed": false,
      "score": 4.0,
      "detail": "judge 4.00 vs reference 5.00; candidate is A: Both correctly cite the return policy and condition about unused/original packaging; A assumes the item was used and box lost, B states the condition and offers human agent.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:022",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers correctly apply the refund policy to the mixed question; A is more structured, B is denser but accurate.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:024",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: Identical to case 11; both correctly handle missing email and device verification per excerpt.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 15,
+   "parity_lower_pct": 30.1
   },
   {
    "site_id": "cs_04",
@@ -1465,65 +1677,76 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:007",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:008",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:009",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:011",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:013",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:014",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:017",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_04:023",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     }
-   ]
+   ],
+   "cases": 9,
+   "parity_lower_pct": 70.0
   }
  ]
 }

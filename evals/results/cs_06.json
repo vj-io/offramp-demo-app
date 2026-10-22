@@ -49,11 +49,37 @@
   "iterations": 1,
   "latency_delta_ms": null,
   "cost_before_per_1k": 0.843875,
-  "cost_before_note": "est.: claude-haiku-4-5 $1.00/$5.00 per 1M (platform.claude.com/docs/zh-CN/models/haiku-4-5/overview, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 8 lightning holdout calls)",
+  "cost_before_note": "est.: claude-haiku-4-5 $1.00/$5.00 per 1M (platform.claude.com/docs/en/models/haiku-4-5, confirmed via Tavily Extract 2026-10-22, as in pricing.yaml) x tokens measured on the Token Factory call (mean of 8 lightning holdout calls)",
   "cost_after_per_1k": 0.0457575,
   "sunset_risk": null,
   "closed_reference_model": null,
   "closed_reference_parity_pct": null,
+  "weak_references": {
+   "cs_06:020": 1.0
+  },
+  "patch_failure": null,
+  "holdout_cases": 8,
+  "holdout_passed": 6,
+  "parity_lower_pct": 40.9,
+  "judge_mean": 4.54,
+  "judge_min": 3.0,
+  "retires_on": null,
+  "price_evidence": {
+   "method": "extract (confirms table)",
+   "query": "claude-haiku-4-5 (claude haiku 4.5) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://platform.claude.com/docs/en/models/haiku-4-5",
+   "quote": "Input pricing : $1/ MTok Output pricing : $5",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": {
+   "model": "nvidia/Nemotron-3_5-Lightning",
+   "input_usd_per_m": 0.06,
+   "output_usd_per_m": 0.24,
+   "via": "token_factory_api",
+   "source": "Token Factory model API, 2026-10-22"
+  },
+  "failed_gate": null,
   "reason": "The summarize_thread function generates concise summaries from discussion threads using the current model, and migrating to the Lightning tier achieves equivalent quality while reducing cost. Lightning: judge mean 4.54 ≥ 4.0 (parity vs reference 75.0%) on holdout after 1 adapter iteration; cost per 1k calls $0.844 before (est.), $0.0458 after."
  },
  "eval_verdict": {
@@ -67,11 +93,31 @@
   "iterations": 1,
   "latency_delta_ms": null,
   "cost_before_per_1k": 0.843875,
-  "cost_before_note": "est.: claude-haiku-4-5 $1.00/$5.00 per 1M (platform.claude.com/docs/zh-CN/models/haiku-4-5/overview, fetched via Tavily 2026-10-20) x tokens measured on the Token Factory call (mean of 8 lightning holdout calls)",
+  "cost_before_note": "est.: claude-haiku-4-5 $1.00/$5.00 per 1M (platform.claude.com/docs/en/models/haiku-4-5, confirmed via Tavily Extract 2026-10-22, as in pricing.yaml) x tokens measured on the Token Factory call (mean of 8 lightning holdout calls)",
   "cost_after_per_1k": 0.0457575,
   "sunset_risk": null,
   "closed_reference_model": null,
   "closed_reference_parity_pct": null,
+  "weak_references": {
+   "cs_06:020": 1.0
+  },
+  "patch_failure": null,
+  "holdout_cases": 8,
+  "holdout_passed": 6,
+  "parity_lower_pct": 40.9,
+  "judge_mean": 4.54,
+  "judge_min": 3.0,
+  "retires_on": null,
+  "price_evidence": {
+   "method": "extract (confirms table)",
+   "query": "claude-haiku-4-5 (claude haiku 4.5) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://platform.claude.com/docs/en/models/haiku-4-5",
+   "quote": "Input pricing : $1/ MTok Output pricing : $5",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": null,
+  "failed_gate": null,
   "reason": "The summarize_thread function generates concise summaries from discussion threads using the current model, and migrating to the Lightning tier achieves equivalent quality while reducing cost. Lightning: judge mean 4.54 ≥ 4.0 (parity vs reference 75.0%) on holdout after 1 adapter iteration; cost per 1k calls $0.844 before (est.), $0.0458 after."
  },
  "adapter": {
@@ -146,93 +192,108 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:004",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:005",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:007",
      "passed": false,
      "score": 2.3333333333333335,
      "detail": "judge 2.33 vs reference 5.00; candidate is A: A invents facts not in evidence",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:009",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:012",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:013",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:017",
      "passed": false,
      "score": 3.0,
      "detail": "judge 3.00 vs reference 5.00; candidate is A: A invents refund issuance not in evidence",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:018",
      "passed": false,
      "score": 2.3333333333333335,
      "detail": "judge 2.33 vs reference 2.33; candidate is A: Both invent facts not in evidence",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 2.3333333333333335
     },
     {
      "case_id": "cs_06:019",
      "passed": false,
      "score": 2.3333333333333335,
      "detail": "judge 2.33 vs reference 2.33; candidate is A: Both invent facts not in evidence",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 2.3333333333333335
     },
     {
      "case_id": "cs_06:021",
      "passed": false,
      "score": 3.333333333333333,
      "detail": "judge 3.33 vs reference 4.33; candidate is A: A invents facts not in evidence",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 4.333333333333333
     }
-   ]
+   ],
+   "cases": 13,
+   "parity_lower_pct": 35.5
   },
   {
    "site_id": "cs_06",
@@ -260,93 +321,108 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:003",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:004",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:005",
      "passed": false,
      "score": 4.333333333333333,
      "detail": "judge 4.33 vs reference 5.00; candidate is A: no issues",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:007",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:009",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:010",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:012",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:013",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:017",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: no issues",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:018",
      "passed": false,
      "score": 2.3333333333333335,
      "detail": "judge 2.33 vs reference 2.33; candidate is A: Answer A invents facts not in the thread (HH-55901, Marcus Webb, $24.00 item, HH-55901, finance approval for 1,188.00 EUR). Answer B invents facts (HH-55901, $24.00, carrier trace #TR-90311, HH-55901 belongs to different ticket, system shows refund processed). Both contradict evidence.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 2.3333333333333335
     },
     {
      "case_id": "cs_06:019",
      "passed": false,
      "score": 2.3333333333333335,
      "detail": "judge 2.33 vs reference 2.33; candidate is A: Both answers invent facts not in the 12-message thread (HH-55901, Marcus Webb, HH-55901, $24.00, carrier trace #TR-90311, Sam refunding HH-55901, Lena Fischer on this ticket, Marcus's $24.00 refund, move Lena's request). They contradict the evidence.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 2.3333333333333335
     },
     {
      "case_id": "cs_06:021",
      "passed": false,
      "score": 3.333333333333333,
      "detail": "judge 3.33 vs reference 2.67; candidate is A: Answer A omits the internal note and the later messages (Lena's Spanish update request, internal note about other tickets, Sam's Spanish reply). Answer B invents facts: internal note wording not in evidence, Sam's Spanish message on 2025-09-04 not in thread, 'other issues on separate tickets' not stated.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 2.666666666666667
     }
-   ]
+   ],
+   "cases": 13,
+   "parity_lower_pct": 42.3
   },
   {
    "site_id": "cs_06",
@@ -372,58 +448,68 @@
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 4.00; candidate is A: Answer A is concise and accurate; Answer B includes the internal note's wording instead of just mentioning it as 'internal note'.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 4.0
     },
     {
      "case_id": "cs_06:006",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 4.17; candidate is A: Answer A is concise and follows format; Answer B includes customer name and language note not required.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 4.166666666666666
     },
     {
      "case_id": "cs_06:008",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 4.83; candidate is A: Both answers are accurate; Answer B adds 'no problem is stated yet' which is not in evidence.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 4.833333333333334
     },
     {
      "case_id": "cs_06:011",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 5.00; candidate is A: Both answers are accurate and follow format; Answer B is slightly more verbose but acceptable.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:014",
      "passed": true,
      "score": 5.0,
      "detail": "judge 5.00 vs reference 3.83; candidate is A: Answer A correctly summarizes in English; Answer B includes Japanese names and language note, and adds 'check whether the reship still stands' not in evidence.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 3.833333333333333
     },
     {
      "case_id": "cs_06:015",
      "passed": false,
      "score": 3.6666666666666665,
      "detail": "judge 3.67 vs reference 5.00; candidate is A: Answer A is in Spanish, violating English requirement; Answer B is in English and accurate.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 5.0
     },
     {
      "case_id": "cs_06:016",
      "passed": true,
      "score": 4.666666666666666,
      "detail": "judge 4.67 vs reference 4.83; candidate is A: Both answers are accurate and follow format; Answer B includes language note not required.",
-     "error_category": null
+     "error_category": null,
+     "reference_score": 4.833333333333334
     },
     {
      "case_id": "cs_06:020",
      "passed": false,
      "score": 3.0,
      "detail": "judge 3.00 vs reference 1.00; candidate is A: Both answers invent facts not in evidence (customer names, amounts, plan details) and miss the actual thread content.",
-     "error_category": "low_judge_score"
+     "error_category": "low_judge_score",
+     "reference_score": 1.0
     }
-   ]
+   ],
+   "cases": 8,
+   "parity_lower_pct": 40.9
   }
  ]
 }

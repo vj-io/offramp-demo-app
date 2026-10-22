@@ -47,7 +47,7 @@
  },
  "verdict": {
   "site_id": "cs_05",
-  "decision": "MANUAL_REVIEW",
+  "decision": "MIGRATE",
   "tier": "lightning",
   "model": "nvidia/Nemotron-3_5-Lightning",
   "parity_pct": 100.0,
@@ -56,12 +56,36 @@
   "iterations": 0,
   "latency_delta_ms": null,
   "cost_before_per_1k": 39.507666666666665,
-  "cost_before_note": "est.: o3 $2.00/$8.00 per 1M (developers.openai.com/api/docs/pricing, pricing.yaml as of 2026-10-19; fallback: Tavily price not used (the cited page prints no unambiguous price for exactly this model)) x tokens measured on the Token Factory call (mean of 6 lightning holdout calls)",
+  "cost_before_note": "est.: o3 $2.00/$8.00 per 1M (developers.openai.com/api/docs/models/o3, confirmed via Tavily Extract 2026-10-22, as in pricing.yaml) x tokens measured on the Token Factory call (mean of 6 lightning holdout calls)",
   "cost_after_per_1k": 1.18523,
   "sunset_risk": null,
   "closed_reference_model": null,
   "closed_reference_parity_pct": null,
-  "reason": "repair produced no change; last failure: patch rejected (patch rules): patch removes tests from tests/test_call_sites.py: ['test_openai_reasoning_site_follows_the_o3_parameter_rules']"
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 6,
+  "holdout_passed": 6,
+  "parity_lower_pct": 60.9,
+  "judge_mean": null,
+  "judge_min": null,
+  "retires_on": null,
+  "price_evidence": {
+   "method": "extract (confirms table)",
+   "query": "o3 (o3) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://developers.openai.com/api/docs/models/o3",
+   "quote": "Input $2.00 Cached input $0.50 Output $8.00",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": {
+   "model": "nvidia/Nemotron-3_5-Lightning",
+   "input_usd_per_m": 0.06,
+   "output_usd_per_m": 0.24,
+   "via": "token_factory_api",
+   "source": "Token Factory model API, 2026-10-22"
+  },
+  "failed_gate": null,
+  "reason": "The plan_refund function reasons about refund eligibility using the Lightning tier which matched reference behavior on unseen cases while being the least expensive option. Lightning: parity vs reference 100.0% ≥ 90% on holdout after 0 adapter iterations; cost per 1k calls $39.51 before (est.), $1.19 after."
  },
  "eval_verdict": {
   "site_id": "cs_05",
@@ -74,11 +98,29 @@
   "iterations": 0,
   "latency_delta_ms": null,
   "cost_before_per_1k": 39.507666666666665,
-  "cost_before_note": "est.: o3 $2.00/$8.00 per 1M (developers.openai.com/api/docs/pricing, pricing.yaml as of 2026-10-19; fallback: Tavily price not used (the cited page prints no unambiguous price for exactly this model)) x tokens measured on the Token Factory call (mean of 6 lightning holdout calls)",
+  "cost_before_note": "est.: o3 $2.00/$8.00 per 1M (developers.openai.com/api/docs/models/o3, confirmed via Tavily Extract 2026-10-22, as in pricing.yaml) x tokens measured on the Token Factory call (mean of 6 lightning holdout calls)",
   "cost_after_per_1k": 1.18523,
   "sunset_risk": null,
   "closed_reference_model": null,
   "closed_reference_parity_pct": null,
+  "weak_references": {},
+  "patch_failure": null,
+  "holdout_cases": 6,
+  "holdout_passed": 6,
+  "parity_lower_pct": 60.9,
+  "judge_mean": null,
+  "judge_min": null,
+  "retires_on": null,
+  "price_evidence": {
+   "method": "extract (confirms table)",
+   "query": "o3 (o3) API pricing: input and output price per 1M tokens (MTok); deprecation, retirement or shutdown date",
+   "url": "https://developers.openai.com/api/docs/models/o3",
+   "quote": "Input $2.00 Cached input $0.50 Output $8.00",
+   "date": "2026-10-22",
+   "note": null
+  },
+  "after_price": null,
+  "failed_gate": null,
   "reason": "The plan_refund function reasons about refund eligibility using the Lightning tier which matched reference behavior on unseen cases while being the least expensive option. Lightning: parity vs reference 100.0% ≥ 90% on holdout after 0 adapter iterations; cost per 1k calls $39.51 before (est.), $1.19 after."
  },
  "adapter": {
@@ -142,128 +184,148 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:004",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:006",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:008",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:009",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:010",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:011",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:012",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:013",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:014",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:015",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:016",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:017",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:019",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:021",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:022",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:023",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:024",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 18,
+   "parity_lower_pct": 82.4
   },
   {
    "site_id": "cs_05",
@@ -286,44 +348,52 @@
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:002",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:005",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:007",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:018",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     },
     {
      "case_id": "cs_05:020",
      "passed": true,
      "score": 1.0,
      "detail": "",
-     "error_category": null
+     "error_category": null,
+     "reference_score": null
     }
-   ]
+   ],
+   "cases": 6,
+   "parity_lower_pct": 60.9
   }
  ]
 }
