@@ -54,9 +54,10 @@ def test_request_contract_for_a_reasoning_model():
     assert plan.amount == Decimal("150.03")
     assert plan.working.endswith("ANSWER: 150.03")
     (call,) = client.calls
-    assert call["model"] == "o3"
-    assert "max_completion_tokens" in call
-    assert "temperature" not in call and "max_tokens" not in call
+    assert call["model"] == "nvidia/Nemotron-3_5-Lightning"
+    assert "max_tokens" in call
+    assert call["temperature"] == 0.0
+    assert "extra_body" in call
     assert call["messages"][0] == {"role": "system", "content": REFUND_POLICY}
     user = call["messages"][1]["content"]
     for expected in [

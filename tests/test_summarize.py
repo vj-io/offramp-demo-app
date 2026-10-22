@@ -20,15 +20,15 @@ def test_request_contract():
 
     assert summary == "Issue: duplicate charge.\nTried so far: none.\nNext step: refund."
     (call,) = client.calls
-    assert call["model"] == "claude-haiku-4-5"
-    assert call["system"] == SUMMARY_SYSTEM_PROMPT
+    assert call["model"] == "nvidia/Nemotron-3_5-Lightning"
     assert call["messages"] == [
+        {"role": "system", "content": SUMMARY_SYSTEM_PROMPT},
         {
             "role": "user",
             "content": "Ticket thread, 2 messages:\n\n"
             "[2025-09-01T08:12:00Z] customer (Priya): Charged twice\n"
             "[2025-09-01T09:40:00Z] agent (Tom): Refunding",
-        }
+        },
     ]
 
 
@@ -39,7 +39,7 @@ def test_every_fixture_thread_is_sent_in_full(case):
 
     assert summarize_thread(client, thread) == "Issue: x."
 
-    content = client.calls[0]["messages"][0]["content"]
+    content = client.calls[0]["messages"][-1]["content"]
     assert content.startswith(f"Ticket thread, {len(thread)} messages:")
     for message in thread:
         assert message.text in content

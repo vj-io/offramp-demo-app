@@ -2,7 +2,13 @@ import pytest
 from fakes import FakeAnthropic, case_ids, load_cases, text_block, tool_use
 
 from helphub.models import ToolResult
-from helphub.ops.agent_step import AGENT_SYSTEM_PROMPT, TOOL_NAMES, TOOLS, next_action
+from helphub.ops.agent_step import (
+    AGENT_SYSTEM_PROMPT,
+    NEMOTRON_TOOLS,
+    TOOL_NAMES,
+    TOOLS,
+    next_action,
+)
 
 CASES = load_cases("agent_steps")
 
@@ -34,14 +40,19 @@ def test_request_contract():
     next_action(client, "Refund HH-1 please", history)
 
     (call,) = client.calls
-    assert call["model"] == "claude-sonnet-4-5"
-    assert call["system"] == AGENT_SYSTEM_PROMPT
-    assert call["tools"] is TOOLS
-    assert call["tool_choice"] == {"type": "any"}
-    (message,) = call["messages"]
-    assert message["role"] == "user"
-    assert "Refund HH-1 please" in message["content"]
-    assert "- lookup_order returned: Order HH-1: DELIVERED, 20.00 EUR" in message["content"]
+    assert call["model"] == "nvidia/nemotron-3-super-120b-a12b"
+    assert call["max_tokens"] == 512
+    assert call["temperature"] == 0.0
+    assert call["tools"] is NEMOTRON_TOOLS
+    assert call["tool_choice"] == "required"
+    assert call["extra_body"] == {"chat_template_kwargs": {"enable_thinking": False}}
+    messages = call["messages"]
+    assert len(messages) == 2
+    assert messages[0]["role"] == "system"
+    assert messages[0]["content"] == AGENT_SYSTEM_PROMPT
+    assert messages[1]["role"] == "user"
+    assert "Refund HH-1 please" in messages[1]["content"]
+    assert "- lookup_order returned: Order HH-1: DELIVERED, 20.00 EUR" in messages[1]["content"]
 
 
 def test_first_step_says_no_results_yet():
@@ -49,7 +60,7 @@ def test_first_step_says_no_results_yet():
 
     next_action(client, "Where is HH-1?", [])
 
-    assert "(none yet)" in client.calls[0]["messages"][0]["content"]
+    assert "(none yet)" in client.calls[0]["messages"][1]["content"]
 
 
 @pytest.mark.parametrize(
@@ -76,7 +87,7 @@ def test_every_fixture_is_sent_and_gets_an_action(case):
     action = next_action(client, case["ticket_text"], history)
 
     assert action.tool == "escalate_to_human"
-    content = client.calls[0]["messages"][0]["content"]
+    content = client.calls[0]["messages"][1]["content"]
     assert case["ticket_text"] in content
     for step in history:
         assert step.output in content
