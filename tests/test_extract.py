@@ -78,11 +78,12 @@ def test_request_contract():
 
     assert fields.order_id == "HH-48213"
     (call,) = client.calls
-    assert call["model"] == "claude-sonnet-4-5"
-    assert call["system"] == EXTRACT_SYSTEM_PROMPT
-    (message,) = call["messages"]
-    assert json.dumps(ORDER_SCHEMA) in message["content"]
-    assert message["content"].endswith("Email:\nSubject: broken\n\nMy mugs broke")
+    assert call["model"] == "nvidia/nemotron-3-super-120b-a12b"
+    assert call["messages"][0]["role"] == "system"
+    assert call["messages"][0]["content"] == EXTRACT_SYSTEM_PROMPT
+    (user_message,) = call["messages"][1:]
+    assert json.dumps(ORDER_SCHEMA) in user_message["content"]
+    assert user_message["content"].endswith("Email:\nSubject: broken\n\nMy mugs broke")
 
 
 def test_joins_multiple_text_blocks():
@@ -98,4 +99,4 @@ def test_every_fixture_email_is_sent_and_parsed(path):
     client = FakeAnthropic(text_block(json.dumps(REPLY)))
 
     assert extract_order(client, email) == OrderFields(**REPLY)
-    assert client.calls[0]["messages"][0]["content"].endswith(email)
+    assert client.calls[0]["messages"][-1]["content"].endswith(email)

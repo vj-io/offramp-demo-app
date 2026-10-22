@@ -20,11 +20,11 @@ API_CHAINS = {
 # file -> (model, module-level constant holding the prompt)
 CHAT_SITES = {
     "inbox/triage.py": ("gpt-4o-mini", "TRIAGE_SYSTEM_PROMPT"),  # cs_01
-    "ops/agent_step.py": ("claude-sonnet-4-5", "AGENT_SYSTEM_PROMPT"),  # cs_02
-    "orders/extract.py": ("claude-sonnet-4-5", "EXTRACT_SYSTEM_PROMPT"),  # cs_03
-    "qa/rag_answer.py": ("gpt-4o", "RAG_SYSTEM_PROMPT"),  # cs_04
-    "refunds/plan.py": ("o3", "REFUND_POLICY"),  # cs_05
-    "summaries/summarize.py": ("claude-haiku-4-5", "SUMMARY_SYSTEM_PROMPT"),  # cs_06
+    "ops/agent_step.py": ("nvidia/nemotron-3-super-120b-a12b", "AGENT_SYSTEM_PROMPT"),  # cs_02
+    "orders/extract.py": ("nvidia/nemotron-3-super-120b-a12b", "EXTRACT_SYSTEM_PROMPT"),  # cs_03
+    "qa/rag_answer.py": ("nvidia/Nemotron-3-Ultra-550b-a55b", "RAG_SYSTEM_PROMPT"),  # cs_04
+    "refunds/plan.py": ("nvidia/Nemotron-3_5-Lightning", "REFUND_POLICY"),  # cs_05
+    "summaries/summarize.py": ("nvidia/Nemotron-3_5-Lightning", "SUMMARY_SYSTEM_PROMPT"),  # cs_06
 }
 
 
@@ -94,8 +94,9 @@ def test_openai_reasoning_site_follows_the_o3_parameter_rules():
     ((_, call),) = llm_calls(PACKAGE / "refunds/plan.py")
     kwargs = keywords(call)
 
-    assert "max_completion_tokens" in kwargs
-    assert "temperature" not in kwargs and "max_tokens" not in kwargs
+    assert "max_tokens" in kwargs
+    assert "temperature" in kwargs and kwargs["temperature"].value == 0.0
+    assert "extra_body" in kwargs
 
 
 def test_tool_use_site_passes_a_module_level_tools_list():

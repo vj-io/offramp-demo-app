@@ -64,10 +64,19 @@ def parse_answer(text: str) -> Decimal:
     return Decimal(matches[-1].replace(",", ""))
 
 
+NEMOTRON_USER_SUFFIX = (
+    "\n\nReply with the final refund amount in the customer's currency alone on the last line as "
+    "`ANSWER: <number>` (digits and a decimal point only: no currency symbol, no thousands "
+    "separator)."
+)
+
+
 def plan_refund(client: OpenAI, request: RefundRequest) -> RefundPlan:
     response = client.chat.completions.create(
-        model="o3",
-        max_completion_tokens=16000,
+        model="nvidia/Nemotron-3_5-Lightning",
+        max_tokens=18000,
+        temperature=0.0,
+        extra_body={"chat_template_kwargs": {"enable_thinking": True}},
         messages=[
             {"role": "system", "content": REFUND_POLICY},
             {
@@ -83,7 +92,8 @@ def plan_refund(client: OpenAI, request: RefundRequest) -> RefundPlan:
                     f"Customer paid in {request.currency} at {request.fx_rate} "
                     f"{request.currency} per 1 USD\n\n"
                     f"How much do we refund, in {request.currency}?"
-                ),
+                )
+                + NEMOTRON_USER_SUFFIX,
             },
         ],
     )

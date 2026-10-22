@@ -3,7 +3,7 @@
 import json
 from typing import Literal
 
-from anthropic import Anthropic
+from openai import OpenAI
 from pydantic import BaseModel, Field, ValidationError
 
 
@@ -21,12 +21,13 @@ class OrderFields(BaseModel):
 
 ORDER_SCHEMA = OrderFields.model_json_schema()
 
-EXTRACT_SYSTEM_PROMPT = """You extract structured order data from customer support emails.
-Reply with a single JSON object that validates against the JSON schema given in the user message.
-Use null for any field the email does not state; never guess.
-Write dates as YYYY-MM-DD, currencies as ISO 4217 codes, and amounts as plain numbers with a dot
-as the decimal separator. Keep names exactly as written. The email may be in any language.
-Do not wrap the JSON in markdown and do not add any commentary."""
+EXTRACT_SYSTEM_PROMPT = """You extract structured order data from customer support emails. Reply \
+with a single JSON object that validates against the JSON schema given in the user message. Use \
+null for any field the email does not state; never guess. Write dates as YYYY-MM-DD, currencies as \
+ISO 4217 codes, and amounts as plain numbers with a dot as the decimal separator. Keep names \
+exactly as written. The email may be in any language. Do not wrap the JSON in markdown and do not \
+add any commentary. If the email does not explicitly mention a currency symbol or code (e.g., €, \
+EUR, USD, $), set the currency field to null."""
 
 
 class ExtractionError(ValueError):
@@ -43,17 +44,87 @@ def parse_order_fields(text: str) -> OrderFields:
         raise ExtractionError(str(exc)) from exc
 
 
-def extract_order(client: Anthropic, email: str) -> OrderFields:
-    response = client.messages.create(
-        model="claude-sonnet-4-5",
+NEMOTRON_RESPONSE_FORMAT = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "response",
+        "strict": True,
+        "schema": {
+            "properties": {
+                "order_id": {
+                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                    "description": "Order id such as HH-48213, null if not stated",
+                    "title": "Order Id",
+                },
+                "customer_name": {
+                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                    "description": "Full name of the customer as written",
+                    "title": "Customer Name",
+                },
+                "customer_email": {
+                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                    "description": "Customer's email address",
+                    "title": "Customer Email",
+                },
+                "order_date": {
+                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                    "description": "Order date as YYYY-MM-DD, null if not stated",
+                    "title": "Order Date",
+                },
+                "total_amount": {
+                    "anyOf": [{"type": "number"}, {"type": "null"}],
+                    "description": "Order total as a plain number, no symbol",
+                    "title": "Total Amount",
+                },
+                "currency": {
+                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                    "description": "ISO 4217 currency code, e.g. EUR",
+                    "title": "Currency",
+                },
+                "issue": {
+                    "enum": [
+                        "damaged",
+                        "missing_item",
+                        "wrong_item",
+                        "late_delivery",
+                        "billing_error",
+                        "other",
+                    ],
+                    "title": "Issue",
+                    "type": "string",
+                },
+            },
+            "required": [
+                "order_id",
+                "customer_name",
+                "customer_email",
+                "order_date",
+                "total_amount",
+                "currency",
+                "issue",
+            ],
+            "title": "OrderFields",
+            "type": "object",
+            "additionalProperties": False,
+        },
+    },
+}
+
+
+def extract_order(client: OpenAI, email: str) -> OrderFields:
+    response = client.chat.completions.create(
+        model="nvidia/nemotron-3-super-120b-a12b",
         max_tokens=1024,
-        system=EXTRACT_SYSTEM_PROMPT,
+        temperature=0.0,
+        response_format=NEMOTRON_RESPONSE_FORMAT,
+        extra_body={"chat_template_kwargs": {"enable_thinking": False}},
         messages=[
+            {"role": "system", "content": EXTRACT_SYSTEM_PROMPT},
             {
                 "role": "user",
                 "content": f"JSON schema:\n{json.dumps(ORDER_SCHEMA)}\n\nEmail:\n{email}",
-            }
+            },
         ],
     )
-    reply = "".join(block.text for block in response.content if block.type == "text")
+    reply = response.choices[0].message.content or ""
     return parse_order_fields(reply)

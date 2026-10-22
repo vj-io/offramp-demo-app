@@ -33,7 +33,13 @@ def test_runs_a_fixture_case(
     monkeypatch, capsys, command, fixtures, case_id, openai_reply, anthropic_blocks, expected
 ):
     monkeypatch.setattr(cli, "OpenAI", lambda: FakeOpenAI(openai_reply))
-    monkeypatch.setattr(cli, "Anthropic", lambda: FakeAnthropic(*anthropic_blocks))
+    monkeypatch.setattr(
+        cli,
+        "token_factory_client",
+        (lambda: FakeAnthropic(*anthropic_blocks))
+        if command in ("next-step", "summarize")
+        else (lambda: FakeOpenAI(openai_reply)),
+    )
 
     code, out = run([command, str(FIXTURES / f"{fixtures}.json"), "--id", case_id], capsys)
 
@@ -43,7 +49,9 @@ def test_runs_a_fixture_case(
 
 
 def test_extract_reads_an_email_file(monkeypatch, capsys):
-    monkeypatch.setattr(cli, "Anthropic", lambda: FakeAnthropic(text_block(json.dumps(EXTRACTED))))
+    monkeypatch.setattr(
+        cli, "token_factory_client", lambda: FakeAnthropic(text_block(json.dumps(EXTRACTED)))
+    )
 
     code, out = run(["extract", str(FIXTURES / "emails" / "001-damaged-mug.eml")], capsys)
 
